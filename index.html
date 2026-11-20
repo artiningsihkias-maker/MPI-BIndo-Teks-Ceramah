@@ -1,0 +1,2979 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MPI Bahasa Indonesia – Teks Ceramah | SMK Perintis Adiluhur</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome untuk Ikon Modern -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          colors: {
+            navy: {
+              800: '#162447',
+              900: '#0F172A',
+              950: '#090E1A',
+            },
+            royal: {
+              600: '#5B21B6',
+              700: '#4C1D95',
+            },
+            tosca: {
+              400: '#2DD4BF',
+              500: '#14B8A6',
+              600: '#0D9488',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Kustomisasi Scrollbar & Animasi Halus */
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #F8FAFC;
+      color: #1E293B;
+      overflow-x: hidden;
+    }
+    h1, h2, h3, h4, .font-display {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .glass-card {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+    .hero-gradient {
+      background: linear-gradient(135deg, #090E1A 0%, #162447 45%, #4C1D95 85%, #0D9488 100%);
+    }
+    .card-gradient {
+      background: linear-gradient(135deg, #162447 0%, #4C1D95 100%);
+    }
+    .tosca-gradient {
+      background: linear-gradient(135deg, #0D9488 0%, #14B8A6 100%);
+    }
+    @keyframes floatSlow {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+    .animate-float {
+      animation: floatSlow 4s ease-in-out infinite;
+    }
+    @keyframes pulseRing {
+      0% { transform: scale(0.95); opacity: 0.7; }
+      70% { transform: scale(1.15); opacity: 0; }
+      100% { transform: scale(0.95); opacity: 0; }
+    }
+    .pulse-ring::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 9999px;
+      border: 2px solid #2DD4BF;
+      animation: pulseRing 2s infinite;
+    }
+    .fade-in {
+      animation: fadeIn 0.35s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Gaya khusus cetak LKPD & Sertifikat */
+    @media print {
+      body * {
+        visibility: hidden;
+      }
+      #print-area, #print-area * {
+        visibility: visible;
+      }
+      #print-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        background: white !important;
+        color: black !important;
+        padding: 20px !important;
+        box-shadow: none !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-tosca-500 selection:text-white">
+
+  <!-- ==================== TOAST NOTIFICATION & MODAL BANTUAN ==================== -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm pointer-events-none"></div>
+
+  <!-- Modal Petunjuk / Bantuan -->
+  <div id="help-modal" class="fixed inset-0 z-50 hidden bg-slate-950/70 backdrop-blur-sm flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 md:p-8 shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto fade-in">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-4 mb-5">
+        <div class="flex items-center gap-3">
+          <div class="w-11 h-11 rounded-2xl bg-indigo-100 text-royal-600 flex items-center justify-center text-xl">
+            <i class="fa-solid fa-compass"></i>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-navy-900">Petunjuk Penggunaan MPI</h3>
+            <p class="text-xs text-slate-500">Panduan Belajar Interaktif Teks Ceramah – Kelas XII SMK</p>
+          </div>
+        </div>
+        <button onclick="toggleHelpModal(false)" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 flex items-center justify-center transition">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div class="space-y-4 text-sm text-slate-600 leading-relaxed">
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/70">
+          <h4 class="font-bold text-navy-900 mb-1 flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-royal-600 text-white text-xs flex items-center justify-center">1</span>
+            Fitur Audio & Pembaca Teks (Web Speech API)
+          </h4>
+          <p>Gunakan panel kontrol suara di bagian atas untuk mendengarkan narasi setiap materi, contoh ceramah, dan instruksi. Anda dapat mengatur kecepatan bicara, volume, jeda (Pause), maupun mematikan suara.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+          <div class="p-3.5 rounded-2xl bg-indigo-50/70 border border-indigo-100">
+            <div class="font-bold text-royal-700 mb-1"><i class="fa-solid fa-book-open mr-1.5"></i>1. Menu Materi (A–J)</div>
+            <p class="text-xs">Pelajari 10 topik lengkap Teks Ceramah beserta contoh, analisis, audio narasi, dan kuis cek pemahaman.</p>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-teal-50/70 border border-teal-100">
+            <div class="font-bold text-tosca-600 mb-1"><i class="fa-solid fa-microphone-lines mr-1.5"></i>2. Simulasi Penceramah</div>
+            <p class="text-xs">Rancang naskah ceramahmu dalam 8 langkah terpandu dan dengarkan simulasi pembacaannya di panggung virtual.</p>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-purple-50/70 border border-purple-100">
+            <div class="font-bold text-purple-700 mb-1"><i class="fa-solid fa-clapperboard mr-1.5"></i>3. Praktikum Proyek</div>
+            <p class="text-xs">Susun proyek ceramah inspiratif, nilai diri berdasarkan rubrik resmi, dan pratinjau video latihanmu.</p>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-amber-50/70 border border-amber-100">
+            <div class="font-bold text-amber-700 mb-1"><i class="fa-solid fa-gamepad mr-1.5"></i>4. Game Edukasi (4 Gim)</div>
+            <p class="text-xs">Asah pemahaman lewat Tebak Struktur, Puzzle Ceramah, Kuis Kilat, dan Detektif Kebahasaan.</p>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-sky-50/70 border border-sky-100">
+            <div class="font-bold text-sky-700 mb-1"><i class="fa-solid fa-file-signature mr-1.5"></i>5. LKPD Digital</div>
+            <p class="text-xs">Isi lembar kerja peserta didik 7 kegiatan secara langsung, simpan otomatis, dan cetak ke PDF.</p>
+          </div>
+          <div class="p-3.5 rounded-2xl bg-rose-50/70 border border-rose-100">
+            <div class="font-bold text-rose-700 mb-1"><i class="fa-solid fa-award mr-1.5"></i>6. Evaluasi & Sertifikat</div>
+            <p class="text-xs">Kerjakan 25 soal komprehensif (PG, Benar/Salah, Uraian), lihat pembahasan, dan cetak sertifikat kelulusan.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 flex flex-wrap justify-between items-center gap-3 pt-4 border-t border-slate-100">
+        <button onclick="speakText('Selamat datang di Media Pembelajaran Interaktif Bahasa Indonesia materi Teks Ceramah. Silakan pilih menu pembelajaran untuk mulai belajar, berlatih, dan bermain.')" class="px-4 py-2.5 rounded-xl bg-tosca-500 hover:bg-tosca-600 text-white text-sm font-semibold flex items-center gap-2 transition">
+          <i class="fa-solid fa-volume-high"></i> Dengarkan Panduan
+        </button>
+        <button onclick="toggleHelpModal(false)" class="px-5 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-white text-sm font-semibold transition">
+          Saya Mengerti
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 1. HALAMAN PEMBUKA / COVER ==================== -->
+  <section id="cover-screen" class="min-h-screen hero-gradient text-white relative overflow-hidden flex flex-col justify-between p-5 md:p-10">
+    <!-- Dekorasi Latar Belakang Cahaya -->
+    <div class="absolute top-[-10%] left-[-5%] w-96 h-96 bg-purple-600/25 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-[-10%] right-[-5%] w-[28rem] h-[28rem] bg-tosca-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+    <!-- Header Cover -->
+    <header class="relative z-10 max-w-7xl w-full mx-auto flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-tosca-400 text-2xl shadow-lg">
+          <i class="fa-solid fa-microphone-lines"></i>
+        </div>
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-widest text-tosca-400 block">SMK Perintis Adiluhur</span>
+          <span class="font-display font-bold text-sm md:text-base text-white">Bahasa Indonesia • Kelas XII Fase F</span>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2.5">
+        <button id="cover-sound-btn" onclick="toggleAudioMaster(true)" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md text-xs md:text-sm font-semibold flex items-center gap-2 transition">
+          <i id="cover-sound-icon" class="fa-solid fa-volume-high text-tosca-400"></i>
+          <span id="cover-sound-label">Suara Aktif</span>
+        </button>
+        <button onclick="toggleHelpModal(true)" class="px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 backdrop-blur-md text-xs md:text-sm font-semibold flex items-center gap-2 transition">
+          <i class="fa-solid fa-circle-question text-amber-300"></i>
+          <span>Petunjuk Penggunaan</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Konten Utama Cover -->
+    <main class="relative z-10 max-w-7xl w-full mx-auto my-8 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      <!-- Kolom Kiri: Judul & Tombol -->
+      <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/15 text-tosca-400 text-xs font-semibold tracking-wide">
+          <span class="w-2 h-2 rounded-full bg-tosca-400 animate-ping"></span>
+          MEDIA PEMBELAJARAN INTERAKTIF (MPI)
+        </div>
+
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight tracking-tight">
+          MPI BAHASA INDONESIA
+          <span class="block text-transparent bg-clip-text bg-gradient-to-r from-tosca-400 via-teal-200 to-purple-300 mt-1">
+            TEKS CERAMAH
+          </span>
+        </h1>
+
+        <p class="text-lg sm:text-xl font-medium text-indigo-100 italic">
+          “Berani Berbicara, Menginspirasi Dunia!”
+        </p>
+
+        <p class="text-sm sm:text-base text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+          Kuasai seni retorika, struktur argumentasi, dan kaidah kebahasaan teks ceramah melalui pengalaman belajar interaktif berbasis audio narasi, simulasi panggung virtual, gim edukasi, dan evaluasi digital.
+        </p>
+
+        <!-- Tombol Aksi Utama -->
+        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
+          <button onclick="startLearning()" class="relative pulse-ring px-8 py-4 rounded-2xl bg-gradient-to-r from-tosca-500 to-teal-400 hover:from-tosca-400 hover:to-teal-300 text-navy-950 font-display font-extrabold text-base md:text-lg shadow-xl shadow-teal-500/25 flex items-center gap-3 transition transform hover:-translate-y-0.5">
+            <i class="fa-solid fa-play"></i>
+            <span>MULAI PEMBELAJARAN</span>
+          </button>
+
+          <button onclick="playWelcomeSpeech()" class="px-6 py-4 rounded-2xl bg-white/10 hover:bg-white/20 border border-white/25 backdrop-blur-md text-white font-semibold text-sm md:text-base flex items-center gap-2.5 transition">
+            <i class="fa-solid fa-headphones text-tosca-400"></i>
+            <span>Dengar Sambutan</span>
+          </button>
+        </div>
+
+        <!-- Identitas Pengembang di Cover -->
+        <div class="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-xs sm:text-sm text-slate-300">
+          <div class="flex items-center gap-3 bg-white/5 border border-white/10 rounded-2xl px-4 py-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-tosca-500 flex items-center justify-center text-white font-bold text-base shadow">
+              SK
+            </div>
+            <div class="text-left">
+              <div class="font-bold text-white">Sri Kias Artiningsih, S.Pd.</div>
+              <div class="text-xs text-tosca-300">Guru Bahasa Indonesia • SMK Perintis Adiluhur</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kolom Kanan: Ilustrasi 3D Edukatif Siswa SMK Berpidato di Podium & Audiens -->
+      <div class="lg:col-span-5 flex justify-center">
+        <div class="relative w-full max-w-md animate-float">
+          <div class="absolute inset-0 bg-gradient-to-tr from-tosca-500/30 to-purple-600/30 rounded-3xl blur-2xl"></div>
+          <div class="relative bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl p-6 shadow-2xl">
+            <!-- Ilustrasi SVG Panggung, Podium, Siswa SMK & Audiens -->
+            <svg viewBox="0 0 420 340" class="w-full h-auto drop-shadow-xl" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="stageGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#1E293B"/>
+                  <stop offset="100%" stop-color="#0F172A"/>
+                </linearGradient>
+                <linearGradient id="podiumGrad" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#6D28D9"/>
+                  <stop offset="100%" stop-color="#312E81"/>
+                </linearGradient>
+                <linearGradient id="spotLight" x1="0.5" y1="0" x2="0.5" y2="1">
+                  <stop offset="0%" stop-color="#2DD4BF" stop-opacity="0.45"/>
+                  <stop offset="100%" stop-color="#2DD4BF" stop-opacity="0"/>
+                </linearGradient>
+              </defs>
+
+              <!-- Latar Panggung & Tirai -->
+              <rect x="20" y="15" width="380" height="250" rx="22" fill="url(#stageGrad)" stroke="#334155" stroke-width="2"/>
+              <polygon points="210,15 110,245 310,245" fill="url(#spotLight)"/>
+
+              <!-- Layar Backdrop Panggung -->
+              <rect x="75" y="38" width="270" height="90" rx="14" fill="#162447" stroke="#2DD4BF" stroke-width="1.5" stroke-opacity="0.6"/>
+              <text x="210" y="75" text-anchor="middle" fill="#2DD4BF" font-size="13" font-weight="bold" font-family="sans-serif">MIMBAR INSPIRASI SMK</text>
+              <text x="210" y="96" text-anchor="middle" fill="#E2E8F0" font-size="10" font-family="sans-serif">"Berani Berbicara, Menginspirasi Dunia!"</text>
+
+              <!-- Gelombang Suara Animasi -->
+              <path d="M125 145 Q115 135 125 125" stroke="#2DD4BF" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <path d="M115 152 Q100 135 115 118" stroke="#A78BFA" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <path d="M295 145 Q305 135 295 125" stroke="#2DD4BF" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <path d="M305 152 Q320 135 305 118" stroke="#A78BFA" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+              <!-- Karakter Siswa SMK Penceramah -->
+              <!-- Badan Jas Almamater SMK -->
+              <path d="M172 185 C172 162, 248 162, 248 185 L254 225 L166 225 Z" fill="#1E3A8A"/>
+              <polygon points="210,166 198,195 210,205 222,195" fill="#FFFFFF"/>
+              <polygon points="210,172 206,195 210,202 214,195" fill="#14B8A6"/>
+              <!-- Kepala & Ekspresi Percaya Diri -->
+              <circle cx="210" cy="136" r="24" fill="#FDBA74"/>
+              <path d="M186 132 C186 112, 234 112, 234 132 C230 122, 190 122, 186 132 Z" fill="#1E293B"/>
+              <circle cx="202" cy="135" r="2.5" fill="#0F172A"/>
+              <circle cx="218" cy="135" r="2.5" fill="#0F172A"/>
+              <path d="M203 145 Q210 151 217 145" stroke="#9A3412" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <!-- Tangan Gestur Berbicara -->
+              <path d="M172 182 Q152 168 158 152" stroke="#1E3A8A" stroke-width="11" stroke-linecap="round" fill="none"/>
+              <circle cx="158" cy="150" r="6" fill="#FDBA74"/>
+
+              <!-- Podium Modern -->
+              <polygon points="165,192 255,192 245,265 175,265" fill="url(#podiumGrad)" stroke="#8B5CF6" stroke-width="2"/>
+              <rect x="158" y="186" width="104" height="10" rx="5" fill="#2DD4BF"/>
+              <!-- Mikrofon di Podium -->
+              <path d="M225 186 L218 162" stroke="#CBD5E1" stroke-width="3" stroke-linecap="round"/>
+              <rect x="213" y="153" width="9" height="13" rx="4.5" fill="#F8FAFC" stroke="#475569" stroke-width="1.5"/>
+
+              <!-- Lantai Panggung -->
+              <rect x="10" y="260" width="400" height="14" rx="7" fill="#334155"/>
+
+              <!-- Siluet Audiens Siswa di Depan Panggung -->
+              <g fill="#0F172A" opacity="0.9">
+                <circle cx="65" cy="296" r="14"/><path d="M42 335 C42 314, 88 314, 88 335 Z"/>
+                <circle cx="125" cy="292" r="15"/><path d="M100 335 C100 312, 150 312, 150 335 Z"/>
+                <circle cx="190" cy="298" r="14"/><path d="M167 335 C167 315, 213 315, 213 335 Z"/>
+                <circle cx="255" cy="293" r="15"/><path d="M230 335 C230 312, 280 312, 280 335 Z"/>
+                <circle cx="320" cy="296" r="14"/><path d="M297 335 C297 314, 343 314, 343 335 Z"/>
+                <circle cx="372" cy="300" r="13"/><path d="M352 335 C352 317, 392 317, 392 335 Z"/>
+              </g>
+            </svg>
+
+            <!-- Badge Fitur Bawah Ilustrasi -->
+            <div class="mt-4 grid grid-cols-3 gap-2 text-center text-xs">
+              <div class="bg-white/10 rounded-xl p-2 border border-white/10">
+                <i class="fa-solid fa-volume-high text-tosca-400 mb-1 block"></i>
+                <span class="font-semibold">Audio Narasi</span>
+              </div>
+              <div class="bg-white/10 rounded-xl p-2 border border-white/10">
+                <i class="fa-solid fa-wand-magic-sparkles text-purple-300 mb-1 block"></i>
+                <span class="font-semibold">Simulasi AI</span>
+              </div>
+              <div class="bg-white/10 rounded-xl p-2 border border-white/10">
+                <i class="fa-solid fa-trophy text-amber-300 mb-1 block"></i>
+                <span class="font-semibold">4 Gim & Sertifikat</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Footer Cover -->
+    <footer class="relative z-10 max-w-7xl w-full mx-auto text-center text-xs text-slate-400 pt-4 border-t border-white/10">
+      © 2026 Media Pembelajaran Interaktif Bahasa Indonesia – Dikembangkan oleh <strong class="text-white">Sri Kias Artiningsih, S.Pd.</strong> (SMK Perintis Adiluhur)
+    </footer>
+  </section>
+
+  <!-- ==================== 2. APLIKASI UTAMA (DASHBOARD & 7 MENU) ==================== -->
+  <div id="main-app" class="hidden min-h-screen flex flex-col lg:flex-row bg-slate-50">
+
+    <!-- SIDEBAR NAVIGASI (Desktop & Drawer Mobile) -->
+    <aside id="sidebar" class="fixed lg:sticky top-0 left-0 z-40 h-screen w-72 bg-navy-900 text-white flex flex-col justify-between transition-transform duration-300 -translate-x-full lg:translate-x-0 shadow-2xl no-print">
+      <div class="p-5 overflow-y-auto flex-1">
+        <!-- Brand Logo -->
+        <div class="flex items-center justify-between pb-5 border-b border-slate-800">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-tosca-500 to-royal-600 flex items-center justify-center text-white text-lg shadow">
+              <i class="fa-solid fa-microphone-lines"></i>
+            </div>
+            <div>
+              <h2 class="font-display font-bold text-sm leading-tight">MPI TEKS CERAMAH</h2>
+              <p class="text-[11px] text-tosca-400">Kelas XII SMK • Fase F</p>
+            </div>
+          </div>
+          <button onclick="toggleSidebar(false)" class="lg:hidden text-slate-400 hover:text-white p-1">
+            <i class="fa-solid fa-xmark text-lg"></i>
+          </button>
+        </div>
+
+        <!-- Ringkasan Progres Belajar di Sidebar -->
+        <div class="my-4 p-3.5 rounded-2xl bg-navy-800/90 border border-slate-700/70">
+          <div class="flex justify-between items-center text-xs mb-1.5">
+            <span class="text-slate-300 font-medium">Progres Belajar</span>
+            <span id="sidebar-progress-text" class="font-bold text-tosca-400">0%</span>
+          </div>
+          <div class="w-full h-2 bg-slate-700 rounded-full overflow-hidden">
+            <div id="sidebar-progress-bar" class="h-full bg-gradient-to-r from-tosca-400 to-purple-400 transition-all duration-500" style="width: 0%"></div>
+          </div>
+          <p id="sidebar-progress-detail" class="text-[11px] text-slate-400 mt-1.5">0 dari 10 materi selesai</p>
+        </div>
+
+        <!-- Daftar Navigasi Utama -->
+        <nav class="space-y-1.5 mt-2">
+          <button onclick="navigateTo('dashboard')" data-nav="dashboard" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium transition bg-royal-600 text-white shadow">
+            <i class="fa-solid fa-house w-5 text-center"></i>
+            <span>Beranda & Dashboard</span>
+          </button>
+
+          <div class="pt-3 pb-1 px-3 text-[10px] font-bold uppercase tracking-wider text-slate-400">7 Menu Pembelajaran</div>
+
+          <button onclick="navigateTo('materi')" data-nav="materi" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-navy-800 hover:text-white transition">
+            <span class="flex items-center gap-3"><i class="fa-solid fa-book-open w-5 text-center text-tosca-400"></i>1. Materi Ceramah</span>
+            <span id="badge-materi" class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-tosca-300">10 Sub</span>
+          </button>
+
+          <button onclick="navigateTo('simulasi')" data-nav="simulasi" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-navy-800 hover:text-white transition">
+            <i class="fa-solid fa-microphone-lines w-5 text-center text-purple-400"></i>
+            <span>2. Simulasi Penceramah</span>
+          </button>
+
+          <button onclick="navigateTo('praktikum')" data-nav="praktikum" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-navy-800 hover:text-white transition">
+            <i class="fa-solid fa-clapperboard w-5 text-center text-pink-400"></i>
+            <span>3. Praktikum Proyek</span>
+          </button>
+
+          <button onclick="navigateTo('game')" data-nav="game" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-navy-800 hover:text-white transition">
+            <span class="flex items-center gap-3"><i class="fa-solid fa-gamepad w-5 text-center text-amber-400"></i>4. Game Edukasi</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300">4 Gim</span>
+          </button>
+
+          <button onclick="navigateTo('lkpd')" data-nav="lkpd" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-navy-800 hover:text-white transition">
+            <i class="fa-solid fa-file-signature w-5 text-center text-sky-400"></i>
+            <span>5. LKPD Digital</span>
+          </button>
+
+          <button onclick="navigateTo('evaluasi')" data-nav="evaluasi" class="nav-btn w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-navy-800 hover:text-white transition">
+            <span class="flex items-center gap-3"><i class="fa-solid fa-award w-5 text-center text-emerald-400"></i>6. Evaluasi & Sertifikat</span>
+            <span id="badge-skor" class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 hidden">0</span>
+          </button>
+
+          <button onclick="navigateTo('pengembang')" data-nav="pengembang" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-300 hover:bg-navy-800 hover:text-white transition">
+            <i class="fa-solid fa-user-tie w-5 text-center text-indigo-300"></i>
+            <span>7. Profil Pengembang</span>
+          </button>
+        </nav>
+      </div>
+
+      <!-- Footer Sidebar -->
+      <div class="p-4 border-t border-slate-800 bg-navy-950/60 space-y-2">
+        <button onclick="backToCover()" class="w-full py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-200 flex items-center justify-center gap-2 transition">
+          <i class="fa-solid fa-arrow-left"></i> Halaman Pembuka
+        </button>
+        <div class="text-[11px] text-center text-slate-400">
+          Sri Kias Artiningsih, S.Pd.<br>SMK Perintis Adiluhur
+        </div>
+      </div>
+    </aside>
+
+    <!-- Backdrop Mobile Sidebar -->
+    <div id="sidebar-backdrop" onclick="toggleSidebar(false)" class="fixed inset-0 bg-slate-900/60 z-30 hidden lg:hidden"></div>
+
+    <!-- KONTEN KANAN (Topbar Audio + Area Dinamis) -->
+    <div class="flex-1 flex flex-col min-w-0">
+
+      <!-- TOPBAR & PANEL KONTROL AUDIO WEB SPEECH API -->
+      <header class="sticky top-0 z-20 bg-white/90 backdrop-blur-md border-b border-slate-200 px-4 md:px-6 py-3 no-print">
+        <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+          <!-- Kiri: Tombol Menu Mobile + Judul Halaman -->
+          <div class="flex items-center gap-3">
+            <button onclick="toggleSidebar(true)" class="lg:hidden w-10 h-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-navy-900 flex items-center justify-center">
+              <i class="fa-solid fa-bars"></i>
+            </button>
+            <div>
+              <div class="flex items-center gap-2">
+                <span id="topbar-breadcrumb" class="text-xs font-semibold text-royal-600 uppercase tracking-wider">Dashboard</span>
+              </div>
+              <h1 id="topbar-title" class="font-display font-bold text-base md:text-lg text-navy-900">Beranda Pembelajaran</h1>
+            </div>
+          </div>
+
+          <!-- Tengah: Kontrol Audio Narasi Indonesia (Play, Pause, Resume, Stop, Speed, Volume) -->
+          <div class="flex flex-wrap items-center gap-1.5 bg-slate-100 border border-slate-200 rounded-2xl px-3 py-1.5">
+            <button onclick="toggleAudioMaster()" id="master-mute-btn" title="Aktif/Nonaktifkan Suara" class="w-8 h-8 rounded-xl bg-white text-tosca-600 hover:bg-tosca-50 flex items-center justify-center shadow-sm transition">
+              <i id="master-mute-icon" class="fa-solid fa-volume-high text-xs"></i>
+            </button>
+            <button onclick="playCurrentPageNarration()" title="Putar Narasi Halaman Ini" class="px-2.5 h-8 rounded-xl bg-royal-600 hover:bg-royal-700 text-white text-xs font-semibold flex items-center gap-1.5 transition">
+              <i class="fa-solid fa-play"></i> <span class="hidden sm:inline">Narasi</span>
+            </button>
+            <button onclick="pauseSpeech()" title="Jeda Suara (Pause)" class="w-8 h-8 rounded-xl bg-white hover:bg-slate-200 text-slate-700 flex items-center justify-center text-xs transition">
+              <i class="fa-solid fa-pause"></i>
+            </button>
+            <button onclick="resumeSpeech()" title="Lanjutkan Suara (Resume)" class="w-8 h-8 rounded-xl bg-white hover:bg-slate-200 text-slate-700 flex items-center justify-center text-xs transition">
+              <i class="fa-solid fa-forward-step"></i>
+            </button>
+            <button onclick="stopSpeech()" title="Hentikan Suara (Stop)" class="w-8 h-8 rounded-xl bg-white hover:bg-rose-100 text-rose-600 flex items-center justify-center text-xs transition">
+              <i class="fa-solid fa-stop"></i>
+            </button>
+
+            <!-- Pengaturan Kecepatan & Volume -->
+            <div class="hidden md:flex items-center gap-2 pl-2 border-l border-slate-300 text-xs text-slate-600">
+              <label class="flex items-center gap-1" title="Kecepatan Suara">
+                <i class="fa-solid fa-gauge-high text-slate-400"></i>
+                <select id="speech-rate" onchange="updateSpeechSettings()" class="bg-white border border-slate-200 rounded-lg px-1.5 py-0.5 text-xs font-medium">
+                  <option value="0.85">0.85x</option>
+                  <option value="1" selected>1.0x</option>
+                  <option value="1.15">1.15x</option>
+                  <option value="1.3">1.3x</option>
+                </select>
+              </label>
+              <label class="flex items-center gap-1" title="Volume Suara">
+                <i class="fa-solid fa-volume-low text-slate-400"></i>
+                <input id="speech-volume" type="range" min="0" max="1" step="0.1" value="1" onchange="updateSpeechSettings()" class="w-14 accent-tosca-600 cursor-pointer" />
+              </label>
+            </div>
+          </div>
+
+          <!-- Kanan: Tombol Bantuan & Layar Penuh -->
+          <div class="flex items-center gap-2">
+            <button onclick="navigateTo('dashboard')" title="Kembali ke Menu Utama" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition">
+              <i class="fa-solid fa-grip"></i>
+            </button>
+            <button onclick="toggleHelpModal(true)" title="Bantuan" class="w-9 h-9 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-700 flex items-center justify-center transition">
+              <i class="fa-solid fa-question"></i>
+            </button>
+            <button onclick="toggleFullScreen()" title="Mode Layar Penuh" class="w-9 h-9 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition">
+              <i class="fa-solid fa-expand"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Peringatan Fallback jika Web Speech API tidak didukung -->
+        <div id="speech-fallback-banner" class="hidden max-w-7xl mx-auto mt-2 px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-xs flex items-center gap-2">
+          <i class="fa-solid fa-circle-info"></i>
+          <span>Browser Anda memiliki dukungan suara terbatas. Seluruh teks narasi tetap tersedia untuk dibaca secara lengkap.</span>
+        </div>
+      </header>
+
+      <!-- AREA KONTEN DINAMIS -->
+      <main id="app-content" class="flex-1 max-w-7xl w-full mx-auto p-4 md:p-6 lg:p-8 fade-in">
+        <!-- Konten dirender secara dinamis oleh JavaScript -->
+      </main>
+
+      <!-- FOOTER APLIKASI -->
+      <footer class="bg-white border-t border-slate-200 py-4 px-6 text-xs text-slate-500 flex flex-wrap justify-between items-center gap-2 no-print">
+        <div>
+          <strong>MPI Bahasa Indonesia – Teks Ceramah</strong> | “Berani Berbicara, Menginspirasi Dunia!”
+        </div>
+        <div>
+          Pengembang: <strong class="text-navy-900">Sri Kias Artiningsih, S.Pd.</strong> – SMK Perintis Adiluhur
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <!-- ==================== JAVASCRIPT LOGIKA & DATA LENGKAP ==================== -->
+  <script>
+    /* ============================================================================
+       1. STATE MANAJEMEN & PENYIMPANAN LOCALSTORAGE
+       ============================================================================ */
+    const STORAGE_KEY = 'mpi_ceramah_smk_perintis_v1';
+
+    const defaultState = {
+      currentSection: 'dashboard',
+      currentMateriIndex: 0,
+      completedMateri: [], // array indeks 0..9
+      gameScores: {
+        struktur: 0,
+        puzzle: 0,
+        kuis: 0,
+        detektif: 0
+      },
+      lkpdData: {
+        nama: '',
+        kelas: 'XII SMK',
+        absen: '',
+        kelompok: '',
+        keg2_pembukaan: '',
+        keg2_isi: '',
+        keg2_penutup: '',
+        keg3_persuasif: '',
+        keg3_ganti: '',
+        keg3_mental: '',
+        keg3_kausalitas: '',
+        keg4_informasi: '',
+        keg4_argumen: '',
+        keg5_moral: '',
+        keg5_nilai: '',
+        keg6_judul: '',
+        keg6_naskah: '',
+        keg7_refleksi: ''
+      },
+      praktikumData: {
+        topik: '',
+        info: '',
+        kerangka: '',
+        naskah: '',
+        refleksi: '',
+        rubrik: [4, 4, 4, 4, 4]
+      },
+      evalResult: null // { pgScore, bsScore, uraianScore, totalScore, category, date, studentName }
+    };
+
+    let appState = loadState();
+
+    function loadState() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          return { ...defaultState, ...JSON.parse(saved) };
+        }
+      } catch (e) {
+        console.warn('Gagal membaca localStorage:', e);
+      }
+      return JSON.parse(JSON.stringify(defaultState));
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+        updateProgressUI();
+      } catch (e) {
+        console.warn('Gagal menyimpan localStorage:', e);
+      }
+    }
+
+    /* ============================================================================
+       2. FITUR AUDIO & SUARA (WEB SPEECH API + EFEK SUARA WEB AUDIO API)
+       ============================================================================ */
+    let audioEnabled = true;
+    let speechRate = 1.0;
+    let speechVolume = 1.0;
+    let indonesianVoice = null;
+
+    function initSpeechVoices() {
+      if (!('speechSynthesis' in window)) {
+        document.getElementById('speech-fallback-banner')?.classList.remove('hidden');
+        return;
+      }
+      const loadVoices = () => {
+        const voices = window.speechSynthesis.getVoices();
+        indonesianVoice = voices.find(v => v.lang.toLowerCase().includes('id-id'))
+                       || voices.find(v => v.lang.toLowerCase().includes('id'))
+                       || null;
+      };
+      loadVoices();
+      window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+    function speakText(text, customRate = null) {
+      if (!audioEnabled) {
+        showToast('Suara sedang dinonaktifkan. Klik ikon speaker untuk mengaktifkan.', 'warning');
+        return;
+      }
+      if (!('speechSynthesis' in window)) {
+        showToast('Fitur suara tidak didukung browser ini. Silakan baca teks pada layar.', 'warning');
+        return;
+      }
+      try {
+        window.speechSynthesis.cancel();
+        const cleanText = text.replace(/<[^>]*>?/gm, ' ').replace(/\s+/g, ' ').trim();
+        const utterance = new SpeechSynthesisUtterance(cleanText);
+        utterance.lang = 'id-ID';
+        if (indonesianVoice) utterance.voice = indonesianVoice;
+        utterance.rate = customRate || speechRate;
+        utterance.volume = speechVolume;
+        utterance.pitch = 1.02;
+        window.speechSynthesis.speak(utterance);
+      } catch (err) {
+        console.error('Speech error:', err);
+      }
+    }
+
+    function pauseSpeech() {
+      if ('speechSynthesis' in window && window.speechSynthesis.speaking) {
+        window.speechSynthesis.pause();
+        showToast('Narasi dijeda.', 'info');
+      }
+    }
+
+    function resumeSpeech() {
+      if ('speechSynthesis' in window && window.speechSynthesis.paused) {
+        window.speechSynthesis.resume();
+        showToast('Narasi dilanjutkan.', 'info');
+      }
+    }
+
+    function stopSpeech() {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    }
+
+    function updateSpeechSettings() {
+      speechRate = parseFloat(document.getElementById('speech-rate').value) || 1.0;
+      speechVolume = parseFloat(document.getElementById('speech-volume').value) || 1.0;
+    }
+
+    function toggleAudioMaster(fromCover = false) {
+      audioEnabled = !audioEnabled;
+      if (!audioEnabled) stopSpeech();
+
+      const coverIcon = document.getElementById('cover-sound-icon');
+      const coverLabel = document.getElementById('cover-sound-label');
+      const masterIcon = document.getElementById('master-mute-icon');
+
+      if (audioEnabled) {
+        if (coverIcon) coverIcon.className = 'fa-solid fa-volume-high text-tosca-400';
+        if (coverLabel) coverLabel.textContent = 'Suara Aktif';
+        if (masterIcon) masterIcon.className = 'fa-solid fa-volume-high text-xs';
+        showToast('Suara narasi diaktifkan.', 'success');
+      } else {
+        if (coverIcon) coverIcon.className = 'fa-solid fa-volume-xmark text-rose-400';
+        if (coverLabel) coverLabel.textContent = 'Suara Nonaktif';
+        if (masterIcon) masterIcon.className = 'fa-solid fa-volume-xmark text-xs text-rose-500';
+        showToast('Suara narasi dinonaktifkan.', 'info');
+      }
+    }
+
+    function playWelcomeSpeech() {
+      speakText('Assalamualaikum warahmatullahi wabarakatuh. Salam sejahtera bagi kita semua. Selamat datang di Media Pembelajaran Interaktif Bahasa Indonesia materi Teks Ceramah untuk kelas dua belas SMK Fase F, karya Ibu Sri Kias Artiningsih, S.Pd. dari SMK Perintis Adiluhur. Berani berbicara, menginspirasi dunia!');
+    }
+
+    // Efek Suara Benar & Salah menggunakan Web Audio API (tanpa file eksternal)
+    function playSoundEffect(type) {
+      if (!audioEnabled) return;
+      try {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        const ctx = new AudioCtx();
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        if (type === 'correct') {
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(523.25, ctx.currentTime); // C5
+          osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.1); // E5
+          osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.2); // G5
+          gain.gain.setValueAtTime(0.2, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.45);
+        } else {
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(220, ctx.currentTime);
+          osc.frequency.linearRampToValueAtTime(150, ctx.currentTime + 0.3);
+          gain.gain.setValueAtTime(0.18, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.35);
+        }
+      } catch (e) {}
+    }
+
+    /* ============================================================================
+       3. DATA KONTEN PEMBELAJARAN LENGKAP (10 SUBMENU MATERI A–J)
+       ============================================================================ */
+    const MATERI_DATA = [
+      {
+        kode: 'A',
+        judul: 'Pengertian Teks Ceramah',
+        ikon: 'fa-book-open-reader',
+        warna: 'from-blue-600 to-indigo-700',
+        narasi: 'Pengertian Teks Ceramah. Teks ceramah adalah teks yang berisi pemberitahuan, penyampaian informasi, pengetahuan, atau nasihat secara lisan di hadapan banyak pendengar untuk memengaruhi, mengajak, maupun menambah wawasan audiens.',
+        penjelasan: `
+          <p class="mb-3"><strong>Teks ceramah</strong> adalah teks yang disusun untuk disampaikan secara lisan di depan khalayak ramai (audiens) yang berisi penyampaian informasi, pengetahuan, nasihat, atau gagasan penting mengenai suatu persoalan aktual.</p>
+          <p>Berbeda dengan pidato yang bersifat umum atau khotbah yang khusus berkaitan dengan ritual keagamaan, ceramah memiliki cakupan edukatif dan persuasif yang luas—mulai dari dunia pendidikan, sosial, budaya, etika profesi SMK, hingga pengembangan karakter remaja.</p>
+        `,
+        contoh: `“Hadirin yang berbahagia, di era revolusi industri saat ini, lulusan SMK tidak hanya dituntut terampil mengoperasikan mesin atau perangkat lunak, tetapi juga wajib memiliki integritas dan etos kerja yang tangguh.”`,
+        kuis: {
+          tanya: 'Apa perbedaan utama teks ceramah dibandingkan obrolan sehari-hari?',
+          opsi: [
+            'Disampaikan secara lisan di depan banyak orang dengan tujuan edukatif dan persuasif',
+            'Hanya boleh dibacakan di tempat ibadah saja',
+            'Tidak memerlukan persiapan gagasan maupun struktur'
+          ],
+          benar: 0,
+          bahas: 'Tepat! Ceramah disampaikan di hadapan khalayak untuk memberikan informasi, nasihat, atau ajakan secara terstruktur.'
+        }
+      },
+      {
+        kode: 'B',
+        judul: 'Tujuan dan Fungsi Teks Ceramah',
+        ikon: 'fa-bullseye',
+        warna: 'from-purple-600 to-violet-700',
+        narasi: 'Tujuan dan fungsi teks ceramah meliputi tujuan informatif untuk memberi wawasan, tujuan persuasif untuk mengajak berbuat positif, tujuan rekreatif untuk menghibur secara mendidik, dan tujuan argumentatif untuk meyakinkan pendengar dengan bukti logis.',
+        penjelasan: `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <div class="p-3.5 rounded-2xl bg-indigo-50 border border-indigo-100">
+              <div class="font-bold text-indigo-900 mb-1">1. Informatif (Memberi Tahu)</div>
+              <p class="text-sm">Menambah wawasan dan pengetahuan baru bagi pendengar tentang topik tertentu.</p>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-teal-50 border border-teal-100">
+              <div class="font-bold text-teal-900 mb-1">2. Persuasif (Mengajak)</div>
+              <p class="text-sm">Membujuk dan menggerakkan audiens agar melakukan tindakan positif sesuai pesan penceramah.</p>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-purple-50 border border-purple-100">
+              <div class="font-bold text-purple-900 mb-1">3. Argumentatif (Meyakinkan)</div>
+              <p class="text-sm">Meyakinkan pendengar melalui fakta, data, dan alasan logis yang dapat dipertanggungjawabkan.</p>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-amber-50 border border-amber-100">
+              <div class="font-bold text-amber-900 mb-1">4. Rekreatif (Menggembirakan)</div>
+              <p class="text-sm">Menghibur audiens melalui penyampaian segar dan humor cerdas tanpa menghilangkan nilai edukasi.</p>
+            </div>
+          </div>
+        `,
+        contoh: `Tujuan Persuasif: “Oleh karena itu, marilah kita mulai membiasakan budaya disiplin waktu sejak di bangku SMK sebagai bekal utama memasuki dunia industri.”`,
+        kuis: {
+          tanya: 'Ceramah yang bertujuan mengubah sikap pendengar agar mau menjaga kebersihan bengkel sekolah termasuk tujuan...',
+          opsi: ['Rekreatif', 'Persuasif', 'Deskriptif'],
+          benar: 1,
+          bahas: 'Benar! Mengajak dan mengubah sikap pendengar merupakan tujuan persuasif.'
+        }
+      },
+      {
+        kode: 'C',
+        judul: 'Ciri-Ciri Teks Ceramah',
+        ikon: 'fa-list-check',
+        warna: 'from-tosca-600 to-emerald-700',
+        narasi: 'Ciri-ciri teks ceramah antara lain memiliki topik yang jelas dan aktual, disampaikan oleh orang yang memiliki keahlian atau wawasan, menggunakan bahasa santun dan komunikatif, didukung fakta dan argumen, serta terdapat interaksi dengan audiens.',
+        penjelasan: `
+          <ul class="space-y-2.5 text-sm">
+            <li class="flex items-start gap-2.5"><i class="fa-solid fa-circle-check text-tosca-600 mt-1"></i><span><strong>Memiliki topik jelas:</strong> Mengangkat isu aktual, bermanfaat, dan sesuai kebutuhan pendengar.</span></li>
+            <li class="flex items-start gap-2.5"><i class="fa-solid fa-circle-check text-tosca-600 mt-1"></i><span><strong>Disampaikan oleh narasumber/penceramah:</strong> Penceramah menguasai materi dan mampu menjelaskannya secara runtut.</span></li>
+            <li class="flex items-start gap-2.5"><i class="fa-solid fa-circle-check text-tosca-600 mt-1"></i><span><strong>Komunikasi dua arah terbatas:</strong> Umumnya satu arah dari penceramah ke audiens, namun dapat diselingi tanya jawab atau sapaan interaktif.</span></li>
+            <li class="flex items-start gap-2.5"><i class="fa-solid fa-circle-check text-tosca-600 mt-1"></i><span><strong>Didukung fakta dan argumen:</strong> Pernyataan diperkuat oleh data, contoh nyata, maupun kutipan ahli.</span></li>
+            <li class="flex items-start gap-2.5"><i class="fa-solid fa-circle-check text-tosca-600 mt-1"></i><span><strong>Bahasa santun dan mudah dipahami:</strong> Menggunakan bahasa baku yang komunikatif serta memperhatikan etika kesantunan.</span></li>
+          </ul>
+        `,
+        contoh: `“Menurut data Kementerian Ketenagakerjaan tahun 2025, 78% perusahaan menilai karakter jujur dan kemampuan komunikasi sebagai faktor utama penerimaan karyawan baru.”`,
+        kuis: {
+          tanya: 'Mengapa teks ceramah memerlukan dukungan fakta dan data?',
+          opsi: [
+            'Agar argumen penceramah logis, objektif, dan dipercaya audiens',
+            'Supaya naskah terlihat panjang dan sulit dipahami',
+            'Karena penceramah tidak boleh menyampaikan pendapat'
+          ],
+          benar: 0,
+          bahas: 'Betul sekali! Fakta dan data membuat argumen lebih kuat, objektif, dan meyakinkan.'
+        }
+      },
+      {
+        kode: 'D',
+        judul: 'Jenis-Jenis Ceramah',
+        ikon: 'fa-layer-group',
+        warna: 'from-sky-600 to-blue-700',
+        narasi: 'Jenis ceramah terbagi menjadi dua kategori utama. Berdasarkan tujuannya terdapat ceramah umum dan ceramah khusus. Berdasarkan metode penyampaiannya terdapat metode impromptu, memoriter, naskah, dan ekstemporan.',
+        penjelasan: `
+          <div class="space-y-3 text-sm">
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <h4 class="font-bold text-navy-900 mb-1">A. Berdasarkan Cakupan Materi</h4>
+              <p><strong>1. Ceramah Umum:</strong> Menyampaikan pesan secara luas kepada masyarakat umum tanpa batasan tema khusus (misal: ceramah motivasi pelajar).</p>
+              <p class="mt-1"><strong>2. Ceramah Khusus:</strong> Bertujuan memberi nasihat atau petunjuk kepada khalayak tertentu dengan tema spesifik (misal: pembekalan PKL/Prakerin siswa SMK).</p>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+              <h4 class="font-bold text-navy-900 mb-1">B. Berdasarkan Metode Penyampaian</h4>
+              <ul class="list-disc pl-5 space-y-1">
+                <li><strong>Impromptu (Serta-merta):</strong> Tanpa persiapan naskah karena ditunjuk mendadak.</li>
+                <li><strong>Memoriter (Menghafal):</strong> Menulis naskah lengkap lalu menghafalkannya kata demi kata.</li>
+                <li><strong>Manuskrip (Membaca Naskah):</strong> Membacakan teks secara utuh (cocok untuk acara resmi/kenegaraan).</li>
+                <li><strong>Ekstemporan (Kerangka Poin):</strong> Menyiapkan catatan garis besar/poin penting lalu mengembangkannya secara luwes. <em>(Metode terbaik untuk penceramah!)</em></li>
+              </ul>
+            </div>
+          </div>
+        `,
+        contoh: `Metode Ekstemporan: Penceramah membawa kartu kecil berisi 3 poin utama pembekalan PKL, lalu menjelaskannya dengan bahasa yang segar dan kontak mata penuh ke audiens.`,
+        kuis: {
+          tanya: 'Metode ceramah yang hanya menyiapkan catatan garis besar/poin penting lalu mengembangkannya secara spontan disebut...',
+          opsi: ['Manuskrip', 'Ekstemporan', 'Memoriter'],
+          benar: 1,
+          bahas: 'Tepat! Ekstemporan menggunakan kerangka poin sehingga penyampaian tetap terarah namun luwes.'
+        }
+      },
+      {
+        kode: 'E',
+        judul: 'Struktur Teks Ceramah',
+        ikon: 'fa-sitemap',
+        warna: 'from-royal-600 to-indigo-800',
+        narasi: 'Struktur teks ceramah terdiri dari tiga bagian utama, yaitu: Pertama, Pembukaan atau Pendahuluan yang berisi salam, sapaan hormat, ucapan syukur, dan pengenalan topik. Kedua, Isi atau Rangkaian Argumentasi yang berisi paparan gagasan, fakta, dan alasan logis. Ketiga, Penutup atau Simpulan yang berisi rangkuman, ajakan, permohonan maaf, dan salam penutup.',
+        penjelasan: `
+          <div class="space-y-3 text-sm">
+            <div class="p-4 rounded-2xl bg-blue-50 border-l-4 border-blue-600">
+              <div class="font-bold text-blue-900 text-base">1. Pembukaan (Pendahuluan)</div>
+              <p class="mt-1">Berisi salam pembuka, sapaan penghormatan kepada audiens, ucapan syukur kepada Tuhan Yang Maha Esa, serta pengantar menuju topik atau tesis yang akan dibahas.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-purple-50 border-l-4 border-purple-600">
+              <div class="font-bold text-purple-900 text-base">2. Isi (Rangkaian Argumentasi)</div>
+              <p class="mt-1">Merupakan bagian inti ceramah yang memuat paparan informasi, analisis masalah, pendapat penceramah, serta fakta dan data pendukung untuk meyakinkan pendengar.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-teal-50 border-l-4 border-teal-600">
+              <div class="font-bold text-teal-900 text-base">3. Penutup (Simpulan)</div>
+              <p class="mt-1">Berisi simpulan inti ceramah, penegasan ajakan/imbauan positif, ucapan terima kasih, permohonan maaf atas kekurangan, dan salam penutup.</p>
+            </div>
+          </div>
+        `,
+        contoh: `<strong>Pembukaan:</strong> “Assalamualaikum wr. wb. Yang terhormat Kepala SMK Perintis Adiluhur...”<br>
+                 <strong>Isi:</strong> “Jejak digital yang kita unggah hari ini akan menjadi pertimbangan HRD perusahaan di masa depan...”<br>
+                 <strong>Penutup:</strong> “Demikian yang dapat saya sampaikan. Mari bijak bermedia sosial. Wassalamualaikum wr. wb.”`,
+        kuis: {
+          tanya: 'Bagian teks ceramah yang berisi paparan pendapat penceramah yang diperkuat fakta dan data adalah...',
+          opsi: ['Pembukaan (Pendahuluan)', 'Isi (Rangkaian Argumentasi)', 'Penutup (Simpulan)'],
+          benar: 1,
+          bahas: 'Benar! Rangkaian argumentasi berada pada bagian Isi ceramah.'
+        }
+      },
+      {
+        kode: 'F',
+        judul: 'Kaidah Kebahasaan Teks Ceramah',
+        ikon: 'fa-spell-check',
+        warna: 'from-fuchsia-600 to-purple-700',
+        narasi: 'Kaidah kebahasaan teks ceramah meliputi penggunaan kata ganti orang pertama dan kedua, kata persuasif, kata kerja mental, kata teknis atau istilah, konjungsi kausalitas, kalimat retoris, serta kalimat imperatif atau ajakan.',
+        penjelasan: `
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm">
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <strong class="text-royal-700">1. Kata Ganti Orang:</strong><br>
+              Orang pertama (<em>saya, aku, kami, kita</em>) dan sapaan orang kedua jamak (<em>hadirin, Bapak/Ibu, rekan-rekan</em>).
+            </div>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <strong class="text-royal-700">2. Kata Persuasif:</strong><br>
+              Kata yang bersifat membujuk/mengajak: <em>hendaknya, sebaiknya, diharapkan, perlu, harus, mari</em>.
+            </div>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <strong class="text-royal-700">3. Kata Kerja Mental:</strong><br>
+              Menyatakan respons batin/pikiran: <em>memahami, menyadari, memprihatinkan, menyimpulkan, meyakini</em>.
+            </div>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <strong class="text-royal-700">4. Kata Teknis / Istilah:</strong><br>
+              Istilah sesuai bidang topik: <em>jejak digital, literasi, kompetensi, etos kerja, perundungan</em>.
+            </div>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <strong class="text-royal-700">5. Konjungsi Kausalitas:</strong><br>
+              Hubungan sebab-akibat: <em>sebab, karena, oleh karena itu, akibatnya, sehingga, maka</em>.
+            </div>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+              <strong class="text-royal-700">6. Kalimat Retoris & Imperatif:</strong><br>
+              <strong>Retoris:</strong> Tanya tak perlu jawab (<em>“Siapa yang tidak ingin sukses?”</em>).<br>
+              <strong>Imperatif:</strong> Perintah/ajakan (<em>“Jagalah etika!”</em>).
+            </div>
+          </div>
+        `,
+        contoh: `“<strong>Kita</strong> (ganti orang) perlu <strong>menyadari</strong> (kerja mental) bahwa penyebaran hoaks merusak persatuan, <strong>oleh karena itu</strong> (kausalitas) <strong>saringlah</strong> (imperatif) informasi sebelum membagikannya!”`,
+        kuis: {
+          tanya: 'Kata "menyadari, memahami, dan meyakini" dalam teks ceramah termasuk kaidah kebahasaan...',
+          opsi: ['Kata kerja mental', 'Konjungsi temporal', 'Kata teknis'],
+          benar: 0,
+          bahas: 'Tepat! Kata-kata tersebut menggambarkan aktivitas pikiran atau batin (kata kerja mental).'
+        }
+      },
+      {
+        kode: 'G',
+        judul: 'Contoh Teks Ceramah Lengkap',
+        ikon: 'fa-file-lines',
+        warna: 'from-emerald-600 to-teal-700',
+        narasi: 'Mari simak contoh teks ceramah lengkap berjudul Membangun Etos Kerja dan Jejak Digital Positif bagi Generasi SMK. Anda dapat menekan tombol Dengarkan Materi untuk menyimak pembacaan naskah ceramah ini.',
+        penjelasan: `
+          <div class="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 space-y-3 text-sm leading-relaxed">
+            <div class="text-center border-b border-slate-200 pb-3">
+              <span class="text-xs font-bold uppercase text-tosca-600">Naskah Ceramah Inspiratif</span>
+              <h4 class="font-display font-bold text-base sm:text-lg text-navy-900">Membangun Etos Kerja dan Jejak Digital Positif bagi Generasi SMK</h4>
+            </div>
+            <p><span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 text-xs font-bold mr-1">Pembukaan</span> Assalamualaikum warahmatullahi wabarakatuh. Salam sejahtera bagi kita semua. Yang saya hormati Kepala SMK Perintis Adiluhur, Bapak dan Ibu guru, serta rekan-rekan siswa kelas XII yang saya banggakan. Puji syukur kita panjatkan ke hadirat Tuhan Yang Maha Esa karena atas rahmat-Nya kita dapat berkumpul dalam keadaan sehat walafiat.</p>
+            <p><span class="px-2 py-0.5 rounded bg-purple-100 text-purple-800 text-xs font-bold mr-1">Isi</span> Hadirin yang berbahagia, sebentar lagi kita akan melangkah menuju dunia usaha dan dunia industri. Pernahkah terlintas di benak kita, mengapa banyak lulusan yang cerdas secara akademis namun gagal mempertahankan pekerjaannya? Jawabannya terletak pada etos kerja dan integritas. Kita harus menyadari bahwa perusahaan masa kini tidak hanya menilai ijazah, tetapi juga menelusuri rekam jejak digital pelamar. Akibatnya, unggahan yang penuh ujaran kebencian atau keluhan kasar di media sosial dapat menutup pintu karier kita sendiri.</p>
+            <p><span class="px-2 py-0.5 rounded bg-teal-100 text-teal-800 text-xs font-bold mr-1">Penutup</span> Oleh karena itu, rekan-rekan sekalian, mari kita bangun kedisiplinan sejak hari ini dan gunakan media sosial untuk memamerkan karya positif kita. Demikian ceramah singkat yang dapat saya sampaikan. Mohon maaf apabila terdapat tutur kata yang kurang berkenan. Wassalamualaikum warahmatullahi wabarakatuh.</p>
+          </div>
+        `,
+        contoh: `Perhatikan bagaimana naskah di atas memadukan sapaan santun, pertanyaan retoris, fakta dunia kerja, konjungsi kausalitas, dan ajakan positif secara harmonis.`,
+        kuis: {
+          tanya: 'Apa gagasan utama yang disampaikan pada bagian Isi contoh ceramah di atas?',
+          opsi: [
+            'Etos kerja dan jejak digital positif sangat menentukan keberhasilan lulusan SMK di dunia kerja',
+            'Siswa SMK dilarang menggunakan ponsel dan internet selamanya',
+            'Nilai rapor adalah satu-satunya syarat diterima bekerja di perusahaan'
+          ],
+          benar: 0,
+          bahas: 'Sangat tepat! Isi ceramah menekankan pentingnya etos kerja dan menjaga jejak digital positif.'
+        }
+      },
+      {
+        kode: 'H',
+        judul: 'Analisis Struktur & Kaidah Kebahasaan',
+        ikon: 'fa-magnifying-glass-chart',
+        warna: 'from-indigo-600 to-blue-800',
+        narasi: 'Pada bagian ini kita menganalisis struktur dan kebahasaan dari teks ceramah sebelumnya. Pembukaan ditandai salam dan sapaan. Isi ditandai argumentasi etos kerja dan jejak digital. Penutup ditandai simpulan ajakan dan salam penutup.',
+        penjelasan: `
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs sm:text-sm">
+              <thead>
+                <tr class="bg-navy-900 text-white">
+                  <th class="p-3 rounded-tl-xl">Aspek Analisis</th>
+                  <th class="p-3 rounded-tr-xl">Bukti Kutipan dalam Teks</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200 bg-white">
+                <tr>
+                  <td class="p-3 font-bold text-blue-700">Struktur: Pembukaan</td>
+                  <td class="p-3">Salam pembuka, sapaan kepada Kepala Sekolah, guru, siswa kelas XII, dan ucapan syukur.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-bold text-purple-700">Struktur: Isi</td>
+                  <td class="p-3">Paparan tantangan lulusan SMK memasuki dunia kerja dan pengaruh jejak digital terhadap seleksi HRD.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-bold text-teal-700">Struktur: Penutup</td>
+                  <td class="p-3">Ajakan membangun disiplin, permohonan maaf, dan salam penutup.</td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-bold text-slate-800">Kalimat Retoris</td>
+                  <td class="p-3"><em>“Pernahkah terlintas di benak kita, mengapa banyak lulusan yang cerdas namun gagal mempertahankan pekerjaannya?”</em></td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-bold text-slate-800">Konjungsi Kausalitas</td>
+                  <td class="p-3"><em>“Akibatnya, unggahan yang penuh ujaran kebencian...”</em> dan <em>“Oleh karena itu, rekan-rekan sekalian...”</em></td>
+                </tr>
+                <tr>
+                  <td class="p-3 font-bold text-slate-800">Kata Teknis</td>
+                  <td class="p-3"><em>etos kerja, integritas, rekam jejak digital, karier.</em></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        `,
+        contoh: `Tips Analisis: Tandai setiap penanda wacana seperti "Oleh karena itu" (menuju penutup/simpulan) atau sapaan "Hadirin yang berbahagia" (transisi antarparagraf).`,
+        kuis: {
+          tanya: 'Kalimat "Pernahkah terlintas di benak kita..." termasuk kaidah kebahasaan berupa...',
+          opsi: ['Kalimat retoris', 'Kalimat berita pasif', 'Konjungsi pertentangan'],
+          benar: 0,
+          bahas: 'Benar! Pertanyaan tersebut tidak menuntut jawaban langsung, melainkan menggugah pemikiran audiens.'
+        }
+      },
+      {
+        kode: 'I',
+        judul: 'Analisis Pesan Moral & Nilai Kehidupan',
+        ikon: 'fa-heart-pulse',
+        warna: 'from-rose-600 to-pink-700',
+        narasi: 'Teks ceramah selalu mengandung pesan moral dan nilai-nilai luhur kehidupan, seperti nilai pendidikan, nilai moral dan etika, nilai sosial kemasyarakatan, serta nilai religius.',
+        penjelasan: `
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+            <div class="p-3.5 rounded-2xl bg-rose-50 border border-rose-100">
+              <div class="font-bold text-rose-900 mb-1"><i class="fa-solid fa-scale-balanced mr-1.5"></i>1. Nilai Moral & Etika</div>
+              <p>Berkaitan dengan baik-buruk perilaku, kejujuran, tanggung jawab, dan kesantunan bertutur kata di dunia nyata maupun digital.</p>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-blue-50 border border-blue-100">
+              <div class="font-bold text-blue-900 mb-1"><i class="fa-solid fa-graduation-cap mr-1.5"></i>2. Nilai Pendidikan (Edukasi)</div>
+              <p>Mendorong semangat belajar sepanjang hayat, penguasaan kompetensi kejuruan, dan kedisiplinan diri.</p>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-emerald-50 border border-emerald-100">
+              <div class="font-bold text-emerald-900 mb-1"><i class="fa-solid fa-people-group mr-1.5"></i>3. Nilai Sosial</div>
+              <p>Menumbuhkan empati, kepedulian terhadap sesama, kerja sama tim, dan anti-perundungan.</p>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-amber-50 border border-amber-100">
+              <div class="font-bold text-amber-900 mb-1"><i class="fa-solid fa-hands-praying mr-1.5"></i>4. Nilai Religius</div>
+              <p>Mengingatkan rasa syukur kepada Tuhan Yang Maha Esa dan amanah dalam menjalankan setiap pekerjaan.</p>
+            </div>
+          </div>
+        `,
+        contoh: `<strong>Pesan Moral:</strong> Setiap unggahan di media sosial mencerminkan karakter pribadi kita; jagalah lisan dan ketikan demi masa depan yang bermartabat.`,
+        kuis: {
+          tanya: 'Pesan ceramah agar siswa saling menghormati teman dan menolak perundungan di sekolah mencerminkan nilai...',
+          opsi: ['Nilai sosial dan moral', 'Nilai ekonomi', 'Nilai estetika'],
+          benar: 0,
+          bahas: 'Betul! Saling menghormati dan anti-perundungan berkaitan erat dengan nilai sosial dan moral.'
+        }
+      },
+      {
+        kode: 'J',
+        judul: 'Rangkuman Materi Teks Ceramah',
+        ikon: 'fa-award',
+        warna: 'from-navy-800 to-royal-700',
+        narasi: 'Rangkuman materi teks ceramah. Teks ceramah bertujuan menyampaikan informasi, nasihat, dan ajakan secara lisan di depan audiens. Strukturnya terdiri dari Pembukaan, Isi, dan Penutup. Kaidah kebahasaannya meliputi kata ganti orang, kata persuasif, kata kerja mental, kata teknis, konjungsi kausalitas, kalimat retoris, dan kalimat imperatif.',
+        penjelasan: `
+          <div class="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-navy-900 to-royal-700 text-white space-y-3 text-sm">
+            <h4 class="font-display font-bold text-base text-tosca-400 flex items-center gap-2">
+              <i class="fa-solid fa-star"></i> Peta Konsep Inti Teks Ceramah
+            </h4>
+            <ul class="space-y-2 text-slate-100">
+              <li><strong>1. Hakikat:</strong> Penyampaian informasi/nasihat secara lisan di depan khalayak untuk mengedukasi dan meyakinkan.</li>
+              <li><strong>2. Tujuan:</strong> Informatif, Persuasif, Argumentatif, dan Rekreatif.</li>
+              <li><strong>3. Struktur Baku:</strong> Pembukaan (salam, sapaan, syukur, pengantar) → Isi (rangkaian argumen & fakta) → Penutup (simpulan, ajakan, maaf, salam).</li>
+              <li><strong>4. Ciri Kebahasaan:</strong> Kata ganti orang, kata persuasif, kata kerja mental, istilah teknis, konjungsi kausalitas, kalimat retoris & imperatif.</li>
+              <li><strong>5. Kunci Penyampaian Lisan:</strong> Pelafalan/artikulasi jelas, intonasi bervariasi, ekspresi wajah ramah, kontak mata, serta bahasa santun.</li>
+            </ul>
+          </div>
+        `,
+        contoh: `Selamat! Kamu telah mencapai rangkuman akhir materi. Tandai materi ini selesai lalu lanjutkan berlatih di menu Simulasi Penceramah Muda!`,
+        kuis: {
+          tanya: 'Urutan struktur teks ceramah yang sistematis dan benar adalah...',
+          opsi: [
+            'Pembukaan – Isi (Rangkaian Argumentasi) – Penutup (Simpulan)',
+            'Orientasi – Komplikasi – Resolusi',
+            'Pernyataan Umum – Deretan Penjelas – Interpretasi'
+          ],
+          benar: 0,
+          bahas: 'Sempurna! Pembukaan, Isi, dan Penutup adalah tiga pilar utama struktur teks ceramah.'
+        }
+      }
+    ];
+
+    /* ============================================================================
+       4. DATA SIMULASI PENCERAMAH MUDA
+       ============================================================================ */
+    const SIMULASI_TEMPLATES = {
+      'Pendidikan karakter': {
+        pembuka: 'Assalamualaikum wr. wb. Yang terhormat Bapak/Ibu guru serta rekan-rekan siswa SMK Perintis Adiluhur yang saya banggakan. Puji syukur kita panjatkan ke hadirat Tuhan Yang Maha Esa atas kesempatan berharga hari ini.',
+        isi: 'Hadirin sekalian, kecerdasan intelektual dan keterampilan teknis memang penting, namun karakter jujur, empati, dan tanggung jawab adalah fondasi utama kesuksesan. Tanpa karakter yang kuat, keahlian tinggi sekalipun akan kehilangan maknanya di tengah masyarakat.',
+        penutup: 'Oleh karena itu, mari kita jadikan sekolah ini sebagai kawah candradimuka pembentukan karakter mulia. Terima kasih atas perhatian hadirin. Wassalamualaikum wr. wb.'
+      },
+      'Bijak menggunakan media sosial': {
+        pembuka: 'Assalamualaikum wr. wb. Salam literasi digital bagi kita semua. Yang saya hormati Bapak/Ibu pembina dan teman-teman generasi muda SMK yang penuh semangat.',
+        isi: 'Rekan-rekan, setiap detik ribuan informasi mengalir di layar ponsel kita. Sayangnya, tidak semua informasi tersebut benar. Kita harus menyadari bahwa jari kita adalah cerminan pikiran kita. Jangan sampai kita ikut menyebarkan berita bohong atau komentar negatif yang merugikan masa depan kita sendiri.',
+        penutup: 'Mari terapkan prinsip saring sebelum sharing! Jadikan media sosial sebagai portofolio prestasi kita. Mohon maaf atas segala kekurangan. Wassalamualaikum wr. wb.'
+      },
+      'Disiplin dan tanggung jawab': {
+        pembuka: 'Assalamualaikum wr. wb. Selamat pagi dan salam sejahtera untuk seluruh warga SMK Perintis Adiluhur yang hadir pada kesempatan ini.',
+        isi: 'Hadirin yang berbahagia, dunia industri tidak mengenal kompromi terhadap keterlambatan dan kelalaian. Disiplin bukan sekadar mematuhi tata tertib sekolah, melainkan melatih diri menghargai waktu dan amanah yang dipercayakan kepada kita.',
+        penutup: 'Mulailah disiplin dari hal kecil hari ini, karena kebiasaan kecil akan melahirkan prestasi besar esok hari. Wassalamualaikum wr. wb.'
+      },
+      'Menjaga lingkungan': {
+        pembuka: 'Assalamualaikum wr. wb. Yang terhormat Bapak/Ibu guru dan teman-teman peduli bumi yang saya cintai.',
+        isi: 'Tahukah kita bahwa sampah plastik yang kita buang sembarangan hari ini membutuhkan ratusan tahun untuk terurai? Lingkungan sekolah yang bersih dan asri bukan hanya tugas petugas kebersihan, melainkan tanggung jawab moral kita bersama.',
+        penutup: 'Mari kurangi plastik sekali pakai dan jaga kebersihan ruang kelas serta bengkel praktik kita. Bumi sehat, belajar pun nikmat. Wassalamualaikum wr. wb.'
+      },
+      'Etika dalam dunia kerja': {
+        pembuka: 'Assalamualaikum wr. wb. Yang saya hormati jajaran pimpinan sekolah, instruktur dunia industri, serta calon tenaga profesional SMK kelas XII.',
+        isi: 'Rekan-rekan calon alumni, dalam dunia kerja, kemampuan teknis atau hard skill membawa kita ke pintu wawancara, tetapi etika komunikasi, sopan santun, dan kerja sama tim atau soft skill-lah yang membuat karier kita bertahan dan melesat.',
+        penutup: 'Junjung tinggi etika profesi di mana pun kita berada. Jadilah lulusan SMK yang kompeten dan berakhlak mulia. Wassalamualaikum wr. wb.'
+      },
+      'Membangun masa depan': {
+        pembuka: 'Assalamualaikum wr. wb. Salam sukses untuk seluruh pelajar hebat SMK Perintis Adiluhur.',
+        isi: 'Masa depan bukanlah sesuatu yang kita tunggu secara pasif, melainkan sesuatu yang kita rancang sejak bangku sekolah. Baik memilih bekerja, berwirausaha, maupun melanjutkan kuliah, semuanya membutuhkan keberanian bermimpi dan ketekunan berproses.',
+        penutup: 'Jangan takut gagal, karena kegagalan adalah guru terbaik menuju keberhasilan. Teruslah berkarya dan menginspirasi! Wassalamualaikum wr. wb.'
+      },
+      'Pencegahan perundungan': {
+        pembuka: 'Assalamualaikum wr. wb. Yang saya hormati Bapak/Ibu guru dan sahabat-sahabat siswa SMK Perintis Adiluhur.',
+        isi: 'Hadirin sekalian, candaan yang merendahkan fisik, mengejek latar belakang, atau mengucilkan teman bukanlah hal yang lucu—itu adalah perundungan atau bullying yang meninggalkan luka batin mendalam. Sekolah harus menjadi rumah kedua yang aman dan nyaman bagi setiap siswa.',
+        penutup: 'Mari hentikan segala bentuk perundungan! Jadilah sahabat yang menguatkan, bukan yang menjatuhkan. Wassalamualaikum wr. wb.'
+      }
+    };
+
+    let simState = {
+      tema: 'Pendidikan karakter',
+      tujuan: 'Persuasif (Mengajak & Menggerakkan)',
+      audiens: 'Siswa-siswi SMK Kelas XII',
+      pembuka: SIMULASI_TEMPLATES['Pendidikan karakter'].pembuka,
+      isi: SIMULASI_TEMPLATES['Pendidikan karakter'].isi,
+      penutup: SIMULASI_TEMPLATES['Pendidikan karakter'].penutup,
+      teknik: 'Ekstemporan (Kerangka Poin & Kontak Mata Aktif)'
+    };
+
+    /* ============================================================================
+       5. DATA 4 GAME EDUKASI
+       ============================================================================ */
+    const GAME_STRUKTUR_SOAL = [
+      { teks: '“Assalamualaikum wr. wb. Yang terhormat Kepala SMK Perintis Adiluhur serta rekan-rekan siswa kelas XII yang berbahagia. Puji syukur kita panjatkan ke hadirat Tuhan Yang Maha Esa.”', jawab: 'Pembukaan', info: 'Berisi salam, sapaan penghormatan, dan ucapan syukur.' },
+      { teks: '“Berdasarkan data survei literasi digital, 65% remaja masih mudah terpengaruh informasi yang belum terverifikasi. Akibatnya, kesalahpahaman sering terjadi di ruang digital.”', jawab: 'Isi', info: 'Memaparkan fakta, data, dan rangkaian argumentasi inti.' },
+      { teks: '“Demikian yang dapat saya sampaikan. Mari kita jadikan disiplin sebagai budaya sehari-hari. Mohon maaf atas segala kekhilafan. Wassalamualaikum wr. wb.”', jawab: 'Penutup', info: 'Memuat simpulan ajakan, permohonan maaf, dan salam penutup.' },
+      { teks: '“Pada kesempatan yang berbahagia ini, izinkan saya menyampaikan gagasan mengenai pentingnya etos kerja dan integritas bagi calon lulusan SMK.”', jawab: 'Pembukaan', info: 'Pengenalan topik/tesis ceramah pada bagian pendahuluan.' },
+      { teks: '“Oleh karena itu, diperlukan kesadaran kolektif dari seluruh warga sekolah untuk menciptakan lingkungan belajar yang bebas dari perundungan.”', jawab: 'Isi', info: 'Bagian argumentasi penegasan pendapat penceramah.' },
+      { teks: '“Akhir kata, semoga apa yang kita diskusikan hari ini membawa manfaat nyata bagi masa depan kita semua. Terima kasih atas perhatian hadirin.”', jawab: 'Penutup', info: 'Ungkapan harapan, terima kasih, dan penutup ceramah.' }
+    ];
+
+    const GAME_PUZZLE_DATA = [
+      { id: 1, label: 'Paragraf A', teks: 'Assalamualaikum warahmatullahi wabarakatuh. Yang saya hormati Bapak/Ibu guru serta teman-teman siswa SMK Perintis Adiluhur yang saya cintai.' },
+      { id: 2, label: 'Paragraf B', teks: 'Puji syukur marilah kita panjatkan ke hadirat Allah SWT sehingga kita dapat berkumpul dalam seminar bertema Pelajar SMK Tangguh dan Berkarakter.' },
+      { id: 3, label: 'Paragraf C', teks: 'Hadirin sekalian, tantangan dunia kerja saat ini menuntut kita memiliki kompetensi kejuruan sekaligus kejujuran yang tinggi. Tanpa kejujuran, kepercayaan perusahaan akan hilang.' },
+      { id: 4, label: 'Paragraf D', teks: 'Oleh karena itu, mari kita latih integritas mulai dari hal sederhana di sekolah, seperti tidak menyontek dan menepati janji.' },
+      { id: 5, label: 'Paragraf E', teks: 'Demikian ceramah singkat saya. Mohon maaf apabila ada kata yang kurang berkenan. Wassalamualaikum warahmatullahi wabarakatuh.' }
+    ];
+
+    const GAME_KUIS_KILAT = [
+      { q: 'Tujuan ceramah yang berfokus menambah wawasan dan pengetahuan pendengar adalah...', opts: ['Informatif', 'Rekreatif', 'Persuasif', 'Imperatif'], a: 0 },
+      { q: 'Kata "sebab, karena, oleh karena itu, akibatnya" termasuk konjungsi...', opts: ['Temporal', 'Kausalitas', 'Pertentangan', 'Syarat'], a: 1 },
+      { q: 'Pertanyaan dalam ceramah yang tidak memerlukan jawaban langsung disebut kalimat...', opts: ['Imperatif', 'Deklaratif', 'Retoris', 'Majemuk'], a: 2 },
+      { q: 'Metode ceramah dengan menyiapkan catatan garis besar lalu mengembangkannya secara luwes adalah...', opts: ['Impromptu', 'Manuskrip', 'Memoriter', 'Ekstemporan'], a: 3 },
+      { q: 'Sapaan "Hadirin yang berbahagia" dalam teks ceramah berfungsi sebagai...', opts: ['Kata teknis', 'Kata ganti sapaan orang kedua', 'Konjungsi kausalitas', 'Kata kerja mental'], a: 1 },
+      { q: 'Permohonan maaf penceramah atas kekhilafan tutur kata terletak pada bagian...', opts: ['Pembukaan', 'Isi', 'Argumentasi', 'Penutup'], a: 3 }
+    ];
+
+    const GAME_DETEKTIF_SOAL = [
+      {
+        kalimat: '“<span class="font-bold underline">Kita</span> harus <span class="font-bold underline">menyadari</span> bahwa hoaks memecah belah persatuan, <span class="font-bold underline">oleh karena itu</span> <span class="font-bold underline">saringlah</span> berita!”',
+        target: 'Manakah yang merupakan KONJUNGSI KAUSALITAS dalam kalimat di atas?',
+        opsi: ['Kita', 'menyadari', 'oleh karena itu', 'saringlah'],
+        benar: 2
+      },
+      {
+        kalimat: '“Sebaiknya generasi muda mulai membangun <span class="font-bold underline">portofolio</span> karya digital yang positif sejak bangku SMK.”',
+        target: 'Manakah yang merupakan KATA PERSUASIF dalam kalimat tersebut?',
+        opsi: ['Sebaiknya', 'generasi muda', 'portofolio', 'bangku SMK'],
+        benar: 0
+      },
+      {
+        kalimat: '“Saya sangat <span class="font-bold underline">memprihatinkan</span> maraknya perundungan siber yang menimpa para pelajar.”',
+        target: 'Kata "memprihatinkan" termasuk kaidah kebahasaan berupa...',
+        opsi: ['Kata teknis', 'Kata kerja mental', 'Kalimat retoris', 'Kata ganti orang'],
+        benar: 1
+      },
+      {
+        kalimat: '“<span class="font-bold underline">Siapa yang tidak ingin</span> lulus SMK langsung diterima bekerja di perusahaan bonafide?”',
+        target: 'Kalimat di atas merupakan contoh penerapan...',
+        opsi: ['Kalimat retoris', 'Konjungsi kausalitas', 'Salam pembuka', 'Kata teknis'],
+        benar: 0
+      }
+    ];
+
+    /* ============================================================================
+       6. DATA EVALUASI KOMPREHENSIF (15 PG + 5 BENAR/SALAH + 5 URAIAN = 25 SOAL)
+       ============================================================================ */
+    const EVALUASI_SOAL = [
+      // 15 Pilihan Ganda (Index 0 - 14)
+      { type: 'pg', q: 'Teks yang berisi penyampaian informasi, pengetahuan, atau nasihat secara lisan di depan banyak pendengar untuk memengaruhi atau menambah wawasan disebut...', opts: ['Teks Ceramah', 'Teks Negosiasi', 'Teks Prosedur', 'Teks Eksplanasi'], ans: 0, bahas: 'Teks ceramah adalah penyampaian informasi, nasihat, atau gagasan secara lisan di hadapan khalayak.' },
+      { type: 'pg', q: 'Perbedaan mendasar antara ceramah dengan khotbah terletak pada...', opts: ['Ceramah bersifat umum mengenai berbagai bidang ilmu/sosial, sedangkan khotbah khusus ritual keagamaan', 'Ceramah tidak memiliki struktur, sedangkan khotbah memiliki struktur', 'Ceramah hanya dilakukan secara tertulis, sedangkan khotbah lisan', 'Ceramah tidak memerlukan audiens'], ans: 0, bahas: 'Khotbah terikat pada tata cara ibadah/keagamaan tertentu, sedangkan ceramah cakupannya lebih umum.' },
+      { type: 'pg', q: 'Apabila seorang guru BK memberikan pembekalan kesiapan mental menghadapi PKL khusus kepada siswa kelas XII, jenis ceramah tersebut termasuk...', opts: ['Ceramah Khusus', 'Ceramah Umum', 'Ceramah Impromptu', 'Ceramah Rekreatif'], ans: 0, bahas: 'Ceramah khusus ditujukan kepada audiens tertentu dengan materi yang spesifik.' },
+      { type: 'pg', q: 'Metode penyampaian ceramah dengan membuat catatan kecil berisi pokok-pokok pikiran lalu mengembangkannya secara komunikatif disebut...', opts: ['Ekstemporan', 'Manuskrip', 'Memoriter', 'Impromptu'], ans: 0, bahas: 'Ekstemporan mengandalkan kerangka poin sehingga penyampaian tetap terarah dan alami.' },
+      { type: 'pg', q: 'Bagian struktur teks ceramah yang berisi salam pembuka, sapaan kehormatan, ucapan syukur, dan pengenalan topik adalah...', opts: ['Pembukaan (Pendahuluan)', 'Rangkaian Argumentasi', 'Simpulan', 'Penegasan Ulang'], ans: 0, bahas: 'Salam, sapaan, syukur, dan pengantar topik merupakan unsur Pembukaan.' },
+      { type: 'pg', q: 'Cermatilah kutipan berikut: "Menurut data BPS, tingkat pengangguran terbuka dapat ditekan melalui penguatan kompetensi vokasi dan kewirausahaan." Kutipan tersebut termasuk struktur bagian...', opts: ['Isi (Rangkaian Argumentasi)', 'Pembukaan', 'Penutup', 'Salam'], ans: 0, bahas: 'Paparan data dan argumen logis merupakan inti dari bagian Isi ceramah.' },
+      { type: 'pg', q: 'Berikut ini yang merupakan fungsi bagian Penutup dalam teks ceramah adalah...', opts: ['Menyimpulkan inti pembicaraan, menyampaikan ajakan, permohonan maaf, dan salam penutup', 'Memperkenalkan latar belakang masalah secara rinci', 'Menyajikan tabel statistik terbaru', 'Menyapa tamu undangan untuk pertama kali'], ans: 0, bahas: 'Penutup merangkum gagasan, menegaskan ajakan, serta menutup dengan maaf dan salam.' },
+      { type: 'pg', q: 'Kata "hendaknya, sebaiknya, marilah, diharapkan" dalam teks ceramah merupakan ciri kebahasaan berupa...', opts: ['Kata persuasif', 'Kata kerja material', 'Konjungsi temporal', 'Kata benda abstrak'], ans: 0, bahas: 'Kata-kata tersebut berfungsi membujuk atau mengajak pendengar (persuasif).' },
+      { type: 'pg', q: 'Manakah kalimat berikut yang menggunakan kata kerja mental?', opts: ['Kita perlu menyadari bahwa disiplin adalah kunci keberhasilan.', 'Siswa SMK merakit komponen mesin di bengkel.', 'Penceramah berjalan menuju podium utama.', 'Hadirin bertepuk tangan dengan meriah.'], ans: 0, bahas: '"Menyadari" menunjukkan aktivitas pikiran/batin (kata kerja mental).' },
+      { type: 'pg', q: 'Konjungsi kausalitas yang tepat untuk melengkapi kalimat rumpang: "Banyak pelajar kurang menyaring informasi di internet, ... berita hoaks mudah menyebar." adalah...', opts: ['akibatnya', 'sedangkan', 'kemudian', 'meskipun'], ans: 0, bahas: '"Akibatnya" menunjukkan hubungan sebab-akibat (kausalitas).' },
+      { type: 'pg', q: '“Bukankah kita semua ingin membanggakan kedua orang tua dengan prestasi terbaik?” Kalimat tersebut dalam teks ceramah berfungsi sebagai...', opts: ['Kalimat retoris untuk menggugah kesadaran audiens', 'Kalimat tanya yang wajib dijawab satu per satu oleh audiens', 'Kalimat larangan keras', 'Kutipan tidak langsung'], ans: 0, bahas: 'Kalimat retoris tidak membutuhkan jawaban lisan, melainkan menyentuh logika/perasaan pendengar.' },
+      { type: 'pg', q: 'Kata-kata seperti "literasi digital, jejak rekam, kompetensi, etos kerja" termasuk kaidah kebahasaan...', opts: ['Kata teknis atau peristilahan', 'Kata sandang', 'Konjungsi penerang', 'Kata seru'], ans: 0, bahas: 'Istilah khusus yang relevan dengan bidang topik ceramah disebut kata teknis.' },
+      { type: 'pg', q: 'Aspek penyampaian ceramah lisan yang berkaitan dengan kejelasan pengucapan huruf dan kata agar tidak terdengar samar disebut...', opts: ['Artikulasi', 'Intonasi', 'Gestur', 'Mimik'], ans: 0, bahas: 'Artikulasi adalah kejelasan pelafalan bunyi bahasa saat berbicara.' },
+      { type: 'pg', q: 'Naik-turunnya nada suara dan penekanan pada kata-kata penting saat berceramah agar tidak terdengar monoton disebut...', opts: ['Intonasi', 'Volume', 'Artikulasi', 'Tempo'], ans: 0, bahas: 'Intonasi mengatur lagu kalimat, tinggi-rendah nada, dan penekanan makna.' },
+      { type: 'pg', q: 'Nilai kehidupan yang tercermin dari ajakan penceramah agar siswa saling menghargai perbedaan dan mencegah perundungan di sekolah adalah...', opts: ['Nilai sosial dan moral', 'Nilai komersial', 'Nilai sejarah', 'Nilai politik'], ans: 0, bahas: 'Saling menghargai sesama dan menjaga keharmonisan merupakan nilai sosial dan moral.' },
+
+      // 5 Benar atau Salah (Index 15 - 19)
+      { type: 'bs', q: 'Ceramah yang disampaikan secara mendadak tanpa persiapan naskah atau catatan sama sekali disebut metode impromptu.', ans: true, bahas: 'BENAR. Impromptu adalah metode penyampaian spontan tanpa persiapan sebelumnya.' },
+      { type: 'bs', q: 'Dalam teks ceramah, penceramah dilarang menggunakan kata ganti orang pertama jamak seperti "kita" karena dianggap tidak sopan.', ans: false, bahas: 'SALAH. Kata ganti "kita" sangat dianjurkan untuk membangun kedekatan dan kebersamaan dengan audiens.' },
+      { type: 'bs', q: 'Struktur rangkaian argumentasi dalam teks ceramah harus didukung oleh fakta, data, atau alasan logis agar audiens yakin.', ans: true, bahas: 'BENAR. Fakta dan argumen logis memperkuat daya persuasi ceramah.' },
+      { type: 'bs', q: 'Kalimat imperatif dalam teks ceramah bertujuan memaksa audiens dengan bahasa yang kasar.', ans: false, bahas: 'SALAH. Kalimat imperatif/ajakan dalam ceramah harus disampaikan secara santun dan persuasif.' },
+      { type: 'bs', q: 'Kontak mata dan ekspresi wajah yang ramah membantu penceramah membangun koneksi emosional dengan audiens.', ans: true, bahas: 'BENAR. Bahasa nonverbal seperti kontak mata dan ekspresi memperkuat pesan lisan.' },
+
+      // 5 Soal Uraian (Index 20 - 24)
+      { type: 'uraian', q: 'Jelaskan secara singkat 3 bagian struktur teks ceramah beserta isi pokok masing-masing bagian!', kunci: 'Pembukaan (salam, sapaan, syukur, pengantar topik), Isi (rangkaian argumentasi, fakta, dan data), Penutup (simpulan, ajakan, permohonan maaf, salam penutup).', bahas: 'Struktur lengkap mencakup Pembukaan, Isi/Rangkaian Argumentasi, dan Penutup/Simpulan.' },
+      { type: 'uraian', q: 'Buatlah 1 contoh kalimat retoris dan 1 contoh kalimat persuasif bertema disiplin siswa SMK!', kunci: 'Retoris: Siapa yang tidak ingin meraih kesuksesan di masa depan? Persuasif: Marilah kita membiasakan hadir tepat waktu mulai hari ini.', bahas: 'Kalimat retoris berupa pertanyaan penggugah kesadaran; kalimat persuasif berupa ajakan positif.' },
+      { type: 'uraian', q: 'Mengapa metode ekstemporan lebih disarankan bagi penceramah dibandingkan metode menghafal (memoriter)?', kunci: 'Karena metode ekstemporan menggunakan kerangka poin sehingga penyampaian lebih luwes, komunikatif, tidak kaku, dan tidak panik jika lupa satu kata.', bahas: 'Ekstemporan menjaga alur sistematis sekaligus memberi kebebasan interaksi alami dengan audiens.' },
+      { type: 'uraian', q: 'Tuliskan 4 aspek teknik berbicara yang harus diperhatikan saat mempraktikkan ceramah di depan umum!', kunci: 'Artikulasi (kejelasan lafal), intonasi (nada dan penekanan), ekspresi/mimik wajah, bahasa tubuh/gestur, kontak mata, serta kesantunan bahasa.', bahas: 'Kombinasi vokal (artikulasi, intonasi) dan nonverbal (ekspresi, kontak mata) menentukan kualitas presentasi.' },
+      { type: 'uraian', q: 'Analisislah pesan moral yang dapat dipetik dari pentingnya menjaga jejak digital positif bagi pelajar SMK!', kunci: 'Pelajar harus bijak dan bertanggung jawab dalam bermedia sosial karena setiap unggahan mencerminkan karakter diri dan memengaruhi masa depan karier.', bahas: 'Kesadaran etika digital dan tanggung jawab pribadi demi masa depan profesional.' }
+    ];
+
+    let evalState = {
+      currentIndex: 0,
+      answers: new Array(25).fill(null), // PG: number, BS: boolean, Uraian: string
+      submitted: false,
+      studentName: ''
+    };
+
+    /* ============================================================================
+       7. FUNGSI NAVIGASI & UTILITAS UI
+       ============================================================================ */
+    function startLearning() {
+      document.getElementById('cover-screen').classList.add('hidden');
+      document.getElementById('main-app').classList.remove('hidden');
+      updateProgressUI();
+      navigateTo(appState.currentSection || 'dashboard');
+      playWelcomeSpeech();
+    }
+
+    function backToCover() {
+      stopSpeech();
+      document.getElementById('main-app').classList.add('hidden');
+      document.getElementById('cover-screen').classList.remove('hidden');
+    }
+
+    function toggleSidebar(open) {
+      const sb = document.getElementById('sidebar');
+      const bd = document.getElementById('sidebar-backdrop');
+      if (open) {
+        sb.classList.remove('-translate-x-full');
+        bd.classList.remove('hidden');
+      } else {
+        sb.classList.add('-translate-x-full');
+        bd.classList.add('hidden');
+      }
+    }
+
+    function toggleHelpModal(show) {
+      const modal = document.getElementById('help-modal');
+      if (show) modal.classList.remove('hidden');
+      else modal.classList.add('hidden');
+    }
+
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen().catch(() => {});
+      }
+    }
+
+    function showToast(msg, type = 'info') {
+      const container = document.getElementById('toast-container');
+      const colors = {
+        success: 'bg-emerald-600 text-white',
+        warning: 'bg-amber-500 text-navy-950',
+        error: 'bg-rose-600 text-white',
+        info: 'bg-navy-900 text-white'
+      };
+      const icons = {
+        success: 'fa-circle-check',
+        warning: 'fa-triangle-exclamation',
+        error: 'fa-circle-xmark',
+        info: 'fa-circle-info'
+      };
+      const toast = document.createElement('div');
+      toast.className = `${colors[type] || colors.info} px-4 py-3 rounded-2xl shadow-xl text-xs sm:text-sm font-medium flex items-center gap-2.5 fade-in pointer-events-auto`;
+      toast.innerHTML = `<i class="fa-solid ${icons[type] || icons.info}"></i><span>${msg}</span>`;
+      container.appendChild(toast);
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.3s';
+        setTimeout(() => toast.remove(), 300);
+      }, 3200);
+    }
+
+    function updateProgressUI() {
+      const doneCount = appState.completedMateri.length;
+      const pct = Math.round((doneCount / MATERI_DATA.length) * 100);
+      const sbText = document.getElementById('sidebar-progress-text');
+      const sbBar = document.getElementById('sidebar-progress-bar');
+      const sbDet = document.getElementById('sidebar-progress-detail');
+      const badgeMat = document.getElementById('badge-materi');
+      const badgeSkor = document.getElementById('badge-skor');
+
+      if (sbText) sbText.textContent = `${pct}%`;
+      if (sbBar) sbBar.style.width = `${pct}%`;
+      if (sbDet) sbDet.textContent = `${doneCount} dari ${MATERI_DATA.length} materi selesai`;
+      if (badgeMat) badgeMat.textContent = `${doneCount}/10`;
+      if (badgeSkor && appState.evalResult) {
+        badgeSkor.textContent = `Nilai: ${appState.evalResult.totalScore}`;
+        badgeSkor.classList.remove('hidden');
+      }
+    }
+
+    function navigateTo(section) {
+      stopSpeech();
+      appState.currentSection = section;
+      saveState();
+      toggleSidebar(false);
+
+      // Update status aktif tombol sidebar
+      document.querySelectorAll('.nav-btn').forEach(btn => {
+        if (btn.dataset.nav === section) {
+          btn.classList.add('bg-royal-600', 'text-white', 'shadow');
+          btn.classList.remove('text-slate-300', 'hover:bg-navy-800');
+        } else {
+          btn.classList.remove('bg-royal-600', 'text-white', 'shadow');
+          btn.classList.add('text-slate-300', 'hover:bg-navy-800');
+        }
+      });
+
+      const titles = {
+        dashboard: ['Beranda', 'Dashboard Pembelajaran Interaktif'],
+        materi: ['Menu 1 • Materi Pembelajaran', 'Materi Teks Ceramah (A – J)'],
+        simulasi: ['Menu 2 • Simulasi Interaktif', 'Simulasi Menjadi Penceramah Muda'],
+        praktikum: ['Menu 3 • Proyek Praktik', 'Proyek Menjadi Penceramah Inspiratif'],
+        game: ['Menu 4 • Gamifikasi', 'Arena Game Edukasi Teks Ceramah'],
+        lkpd: ['Menu 5 • Lembar Kerja', 'LKPD Digital Interaktif'],
+        evaluasi: ['Menu 6 • Asesmen Akhir', 'Evaluasi Pembelajaran & Sertifikat'],
+        pengembang: ['Menu 7 • Identitas', 'Profil Pengembang Media']
+      };
+
+      const [crumb, title] = titles[section] || ['MPI', 'Teks Ceramah'];
+      document.getElementById('topbar-breadcrumb').textContent = crumb;
+      document.getElementById('topbar-title').textContent = title;
+
+      const container = document.getElementById('app-content');
+      container.classList.remove('fade-in');
+      void container.offsetWidth;
+      container.classList.add('fade-in');
+
+      switch (section) {
+        case 'dashboard': renderDashboard(container); break;
+        case 'materi': renderMateri(container); break;
+        case 'simulasi': renderSimulasi(container); break;
+        case 'praktikum': renderPraktikum(container); break;
+        case 'game': renderGameMenu(container); break;
+        case 'lkpd': renderLKPD(container); break;
+        case 'evaluasi': renderEvaluasi(container); break;
+        case 'pengembang': renderPengembang(container); break;
+      }
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function playCurrentPageNarration() {
+      const sec = appState.currentSection;
+      if (sec === 'materi') {
+        const m = MATERI_DATA[appState.currentMateriIndex];
+        speakText(`${m.judul}. ${m.narasi}`);
+      } else if (sec === 'dashboard') {
+        speakText('Anda berada di Dashboard utama Media Pembelajaran Interaktif Teks Ceramah. Pilih satu dari tujuh menu pembelajaran untuk mulai mempelajari materi, simulasi penceramah, praktikum proyek, empat game edukasi, LKPD digital, atau evaluasi akhir.');
+      } else if (sec === 'simulasi') {
+        speakText('Selamat datang di Simulasi Menjadi Penceramah Muda. Ikuti delapan tahapan untuk menyusun naskah ceramah Anda dan dengarkan pembacaannya di panggung virtual.');
+      } else if (sec === 'praktikum') {
+        speakText('Menu Praktikum Proyek Menjadi Penceramah Inspiratif. Rancang kerangka, tulis naskah ceramah tiga sampai lima menit, lakukan penilaian diri berdasarkan rubrik, dan pratinjau rekaman latihan Anda.');
+      } else if (sec === 'game') {
+        speakText('Selamat datang di Arena Game Edukasi Teks Ceramah. Pilih salah satu dari empat permainan seru: Tebak Struktur Ceramah, Puzzle Ceramah, Kuis Kilat, atau Detektif Kebahasaan.');
+      } else if (sec === 'lkpd') {
+        speakText('Lembar Kerja Peserta Didik Digital. Lengkapi identitas Anda, kerjakan ketujuh kegiatan analisis secara interaktif, simpan jawaban, lalu cetak atau unduh ke PDF.');
+      } else if (sec === 'evaluasi') {
+        speakText('Evaluasi Pembelajaran Teks Ceramah. Terdiri dari lima belas soal pilihan ganda, lima soal benar atau salah, dan lima soal uraian. Kerjakan dengan teliti untuk memperoleh sertifikat hasil belajar.');
+      } else if (sec === 'pengembang') {
+        speakText('Profil Pengembang Media Pembelajaran Interaktif Bahasa Indonesia: Ibu Sri Kias Artiningsih, S.Pd., Guru Bahasa Indonesia di SMK Perintis Adiluhur.');
+      }
+    }
+
+    /* ============================================================================
+       8. RENDER DASHBOARD BERANDA
+       ============================================================================ */
+    function renderDashboard(container) {
+      const doneCount = appState.completedMateri.length;
+      const pct = Math.round((doneCount / MATERI_DATA.length) * 100);
+      const totalGamePts = Object.values(appState.gameScores).reduce((a, b) => a + b, 0);
+      const evalScore = appState.evalResult ? appState.evalResult.totalScore : 'Belum Tes';
+
+      container.innerHTML = `
+        <!-- Banner Sambutan Dashboard -->
+        <div class="card-gradient rounded-3xl p-6 md:p-8 text-white shadow-xl relative overflow-hidden mb-6">
+          <div class="absolute right-[-30px] bottom-[-30px] opacity-15 text-9xl pointer-events-none">
+            <i class="fa-solid fa-microphone-lines"></i>
+          </div>
+          <div class="relative z-10 max-w-3xl space-y-3">
+            <span class="inline-block px-3 py-1 rounded-full bg-white/15 text-tosca-300 text-xs font-semibold">
+              Fase F • Kelas XII SMK Perintis Adiluhur
+            </span>
+            <h2 class="font-display text-2xl md:text-3xl font-extrabold">
+              Selamat Belajar di MPI Teks Ceramah!
+            </h2>
+            <p class="text-sm md:text-base text-indigo-100 leading-relaxed">
+              “Berani Berbicara, Menginspirasi Dunia!” — Kuasai kemampuan menyusun dan menyampaikan ceramah yang memukau melalui 3 pilar belajar: <strong>Learning by Listening</strong>, <strong>Learning by Doing</strong>, dan <strong>Learning by Playing</strong>.
+            </p>
+            <div class="pt-2 flex flex-wrap gap-3">
+              <button onclick="navigateTo('materi')" class="px-5 py-2.5 rounded-xl bg-tosca-500 hover:bg-tosca-400 text-navy-950 font-bold text-sm flex items-center gap-2 transition shadow">
+                <i class="fa-solid fa-book-open"></i> Lanjutkan Belajar Materi
+              </button>
+              <button onclick="navigateTo('simulasi')" class="px-5 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-semibold text-sm flex items-center gap-2 transition">
+                <i class="fa-solid fa-microphone"></i> Coba Simulasi Panggung
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Kartu Statistik Progres -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold text-slate-500 uppercase">Materi Dipelajari</span>
+              <span class="w-9 h-9 rounded-xl bg-indigo-50 text-royal-600 flex items-center justify-center"><i class="fa-solid fa-book"></i></span>
+            </div>
+            <div class="font-display text-2xl font-extrabold text-navy-900">${doneCount} / 10 <span class="text-sm font-semibold text-tosca-600">(${pct}%)</span></div>
+            <div class="w-full h-1.5 bg-slate-100 rounded-full mt-2 overflow-hidden">
+              <div class="h-full bg-royal-600" style="width:${pct}%"></div>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold text-slate-500 uppercase">Total Skor Gim</span>
+              <span class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center"><i class="fa-solid fa-trophy"></i></span>
+            </div>
+            <div class="font-display text-2xl font-extrabold text-navy-900">${totalGamePts} <span class="text-xs font-normal text-slate-500">Poin</span></div>
+            <p class="text-xs text-slate-500 mt-1">Akumulasi 4 game edukasi</p>
+          </div>
+
+          <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold text-slate-500 uppercase">Nilai Evaluasi Akhir</span>
+              <span class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center"><i class="fa-solid fa-award"></i></span>
+            </div>
+            <div class="font-display text-2xl font-extrabold text-navy-900">${evalScore}</div>
+            <p class="text-xs text-slate-500 mt-1">${appState.evalResult ? appState.evalResult.category : '25 soal siap dikerjakan'}</p>
+          </div>
+
+          <div class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-semibold text-slate-500 uppercase">Status LKPD Digital</span>
+              <span class="w-9 h-9 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center"><i class="fa-solid fa-file-pen"></i></span>
+            </div>
+            <div class="font-display text-lg font-extrabold text-navy-900">${appState.lkpdData.nama ? 'Tersimpan' : 'Siap Diisi'}</div>
+            <p class="text-xs text-slate-500 mt-1">7 Kegiatan & Cetak PDF</p>
+          </div>
+        </div>
+
+        <!-- 7 Menu Utama Pembelajaran -->
+        <div class="mb-4 flex items-center justify-between">
+          <h3 class="font-display text-lg font-bold text-navy-900">Eksplorasi 7 Menu Pembelajaran</h3>
+          <span class="text-xs text-slate-500">Klik kartu untuk membuka</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 mb-8">
+          ${[
+            { id: 'materi', no: '01', title: 'Materi Teks Ceramah', desc: '10 topik lengkap (A–J) dengan audio narasi, contoh konkret, analisis, dan kuis cek.', icon: 'fa-book-open', color: 'from-blue-600 to-indigo-700' },
+            { id: 'simulasi', no: '02', title: 'Simulasi Penceramah Muda', desc: '8 tahap menyusun naskah ceramah bertema vokasi & karakter lengkap dengan suara panggung.', icon: 'fa-microphone-lines', color: 'from-purple-600 to-royal-700' },
+            { id: 'praktikum', no: '03', title: 'Praktikum Proyek Ceramah', desc: 'Proyek menulis naskah 3–5 menit, rubrik penilaian 5 aspek, dan pratinjau video rekaman.', icon: 'fa-clapperboard', color: 'from-pink-600 to-rose-700' },
+            { id: 'game', no: '04', title: 'Game Edukasi Interaktif', desc: '4 gim seru: Tebak Struktur, Puzzle Ceramah, Kuis Kilat, dan Detektif Kebahasaan.', icon: 'fa-gamepad', color: 'from-amber-500 to-orange-600' },
+            { id: 'lkpd', no: '05', title: 'LKPD Digital', desc: 'Lembar kerja 7 kegiatan terstruktur dengan penyimpanan otomatis dan cetak PDF.', icon: 'fa-file-signature', color: 'from-sky-500 to-blue-600' },
+            { id: 'evaluasi', no: '06', title: 'Evaluasi & Sertifikat', desc: '15 Pilihan Ganda, 5 Benar/Salah, 5 Uraian, pembahasan lengkap, dan sertifikat cetak.', icon: 'fa-award', color: 'from-emerald-500 to-teal-700' },
+            { id: 'pengembang', no: '07', title: 'Profil Pengembang', desc: 'Informasi pengembang media: Sri Kias Artiningsih, S.Pd. – SMK Perintis Adiluhur.', icon: 'fa-user-tie', color: 'from-navy-800 to-slate-900' }
+          ].map(item => `
+            <div onclick="navigateTo('${item.id}')" class="group cursor-pointer bg-white rounded-3xl p-6 border border-slate-200/90 hover:border-royal-600/40 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-4">
+                  <div class="w-12 h-12 rounded-2xl bg-gradient-to-br ${item.color} text-white flex items-center justify-center text-xl shadow-md group-hover:scale-110 transition">
+                    <i class="fa-solid ${item.icon}"></i>
+                  </div>
+                  <span class="font-display font-extrabold text-2xl text-slate-200 group-hover:text-indigo-200 transition">${item.no}</span>
+                </div>
+                <h4 class="font-display font-bold text-lg text-navy-900 group-hover:text-royal-600 transition mb-2">${item.title}</h4>
+                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">${item.desc}</p>
+              </div>
+              <div class="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-royal-600">
+                <span>Buka Aktivitas</span>
+                <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <!-- Tujuan Pembelajaran Fase F -->
+        <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+          <h3 class="font-display font-bold text-base md:text-lg text-navy-900 mb-3 flex items-center gap-2">
+            <i class="fa-solid fa-bullseye text-tosca-600"></i> Capaian & Tujuan Pembelajaran (Fase F)
+          </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-xs sm:text-sm text-slate-700">
+            <div class="flex items-start gap-2"><span class="font-bold text-royal-600">1.</span> Memahami pengertian, tujuan, fungsi, dan karakteristik teks ceramah.</div>
+            <div class="flex items-start gap-2"><span class="font-bold text-royal-600">2.</span> Mengidentifikasi struktur teks ceramah (Pembukaan, Isi, Penutup).</div>
+            <div class="flex items-start gap-2"><span class="font-bold text-royal-600">3.</span> Menganalisis kaidah kebahasaan teks ceramah secara tepat.</div>
+            <div class="flex items-start gap-2"><span class="font-bold text-royal-600">4.</span> Menganalisis informasi, argumentasi, pesan moral, dan nilai kehidupan.</div>
+            <div class="flex items-start gap-2"><span class="font-bold text-royal-600">5.</span> Menyusun teks ceramah secara sistematis, logis, dan kreatif.</div>
+            <div class="flex items-start gap-2"><span class="font-bold text-royal-600">6.</span> Menyampaikan dan mengevaluasi ceramah lisan secara santun dan percaya diri.</div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* ============================================================================
+       9. MENU 1: MATERI PEMBELAJARAN LENGKAP (A – J)
+       ============================================================================ */
+    function renderMateri(container) {
+      const idx = appState.currentMateriIndex;
+      const m = MATERI_DATA[idx];
+      const isDone = appState.completedMateri.includes(idx);
+
+      container.innerHTML = `
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Sidebar Daftar Submenu A - J -->
+          <div class="lg:col-span-4 space-y-2">
+            <div class="bg-white rounded-3xl p-4 border border-slate-200 shadow-sm">
+              <h3 class="font-display font-bold text-sm text-navy-900 px-2 pb-3 border-b border-slate-100 flex items-center justify-between">
+                <span>Daftar Topik Materi (A–J)</span>
+                <span class="text-xs font-semibold text-tosca-600">${appState.completedMateri.length}/10 Selesai</span>
+              </h3>
+              <div class="mt-3 space-y-1.5 max-h-[65vh] overflow-y-auto pr-1">
+                ${MATERI_DATA.map((item, i) => {
+                  const active = i === idx;
+                  const completed = appState.completedMateri.includes(i);
+                  return `
+                    <button onclick="selectMateri(${i})" class="w-full text-left px-3 py-2.5 rounded-2xl text-xs sm:text-sm font-medium flex items-center justify-between gap-2 transition ${active ? 'bg-navy-900 text-white shadow' : 'hover:bg-slate-100 text-slate-700'}">
+                      <span class="flex items-center gap-2.5 truncate">
+                        <span class="w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold shrink-0 ${active ? 'bg-tosca-500 text-navy-950' : 'bg-indigo-100 text-royal-700'}">${item.kode}</span>
+                        <span class="truncate">${item.judul}</span>
+                      </span>
+                      ${completed ? '<i class="fa-solid fa-circle-check text-emerald-500 shrink-0"></i>' : '<i class="fa-regular fa-circle text-slate-300 shrink-0"></i>'}
+                    </button>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          </div>
+
+          <!-- Konten Utama Materi Aktif -->
+          <div class="lg:col-span-8 space-y-5">
+            <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+              <!-- Header Kartu Materi -->
+              <div class="bg-gradient-to-r ${m.warna} p-6 text-white flex flex-wrap items-center justify-between gap-4">
+                <div class="flex items-center gap-3.5">
+                  <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur flex items-center justify-center text-2xl">
+                    <i class="fa-solid ${m.ikon}"></i>
+                  </div>
+                  <div>
+                    <span class="text-xs uppercase tracking-wider text-white/80 font-semibold">Submateri ${m.kode} dari J</span>
+                    <h2 class="font-display text-xl md:text-2xl font-extrabold">${m.judul}</h2>
+                  </div>
+                </div>
+
+                <button onclick="speakText('${m.judul}. ${m.narasi.replace(/'/g, "\\'")}')" class="px-4 py-2.5 rounded-xl bg-white text-navy-900 hover:bg-tosca-300 font-bold text-xs sm:text-sm flex items-center gap-2 shadow transition">
+                  <i class="fa-solid fa-volume-high text-royal-600"></i> Dengarkan Materi
+                </button>
+              </div>
+
+              <!-- Isi Penjelasan & Ilustrasi Visual -->
+              <div class="p-6 space-y-5">
+                <div>
+                  <h4 class="font-display font-bold text-sm uppercase tracking-wider text-royal-600 mb-2">Penjelasan Konsep</h4>
+                  <div class="text-slate-700 text-sm sm:text-base leading-relaxed">
+                    ${m.penjelasan}
+                  </div>
+                </div>
+
+                <!-- Kotak Contoh Konkret -->
+                <div class="p-4 sm:p-5 rounded-2xl bg-amber-50/80 border border-amber-200/80">
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-xs font-bold uppercase tracking-wider text-amber-800 flex items-center gap-1.5">
+                      <i class="fa-solid fa-lightbulb text-amber-500"></i> Contoh Konkret
+                    </span>
+                    <button onclick="speakText(document.getElementById('contoh-materi-box').innerText)" class="text-xs font-semibold text-amber-800 hover:underline">
+                      <i class="fa-solid fa-play mr-1"></i>Bacakan Contoh
+                    </button>
+                  </div>
+                  <p id="contoh-materi-box" class="text-sm text-slate-800 leading-relaxed">${m.contoh}</p>
+                </div>
+
+                <!-- Latihan Pemahaman Singkat -->
+                <div class="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200">
+                  <div class="text-xs font-bold uppercase tracking-wider text-tosca-600 mb-2 flex items-center gap-1.5">
+                    <i class="fa-solid fa-circle-question"></i> Cek Pemahaman Singkat
+                  </div>
+                  <p class="font-semibold text-sm text-navy-900 mb-3">${m.kuis.tanya}</p>
+                  <div class="space-y-2">
+                    ${m.kuis.opsi.map((op, opIdx) => `
+                      <button onclick="checkMateriQuiz(${idx}, ${opIdx})" class="materi-quiz-btn w-full text-left p-3 rounded-xl bg-white hover:bg-indigo-50 border border-slate-200 text-xs sm:text-sm font-medium text-slate-700 transition flex items-center gap-2.5">
+                        <span class="w-6 h-6 rounded-full bg-slate-100 text-slate-600 text-xs font-bold flex items-center justify-center shrink-0">${String.fromCharCode(65 + opIdx)}</span>
+                        <span>${op}</span>
+                      </button>
+                    `).join('')}
+                  </div>
+                  <div id="materi-quiz-feedback" class="hidden mt-3 p-3 rounded-xl text-xs sm:text-sm font-medium"></div>
+                </div>
+
+                <!-- Tombol Tandai Selesai & Navigasi Sebelumnya / Selanjutnya -->
+                <div class="pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
+                  <button onclick="selectMateri(${idx - 1})" ${idx === 0 ? 'disabled' : ''} class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 disabled:opacity-40 text-xs sm:text-sm font-semibold flex items-center gap-2 transition">
+                    <i class="fa-solid fa-arrow-left"></i> Sebelumnya
+                  </button>
+
+                  <button onclick="toggleMateriDone(${idx})" class="px-5 py-2.5 rounded-xl font-bold text-xs sm:text-sm flex items-center gap-2 transition ${isDone ? 'bg-emerald-100 text-emerald-800 border border-emerald-300' : 'bg-tosca-500 hover:bg-tosca-600 text-white shadow'}">
+                    <i class="fa-solid ${isDone ? 'fa-circle-check' : 'fa-check'}"></i>
+                    <span>${isDone ? 'Materi Sudah Dipelajari' : 'Tandai Selesai Dipelajari'}</span>
+                  </button>
+
+                  <button onclick="selectMateri(${idx + 1})" ${idx === MATERI_DATA.length - 1 ? 'disabled' : ''} class="px-4 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-white disabled:opacity-40 text-xs sm:text-sm font-semibold flex items-center gap-2 transition">
+                    <span>Selanjutnya</span> <i class="fa-solid fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function selectMateri(index) {
+      if (index < 0 || index >= MATERI_DATA.length) return;
+      stopSpeech();
+      appState.currentMateriIndex = index;
+      saveState();
+      renderMateri(document.getElementById('app-content'));
+    }
+
+    function toggleMateriDone(index) {
+      const pos = appState.completedMateri.indexOf(index);
+      if (pos === -1) {
+        appState.completedMateri.push(index);
+        playSoundEffect('correct');
+        showToast(`Submateri ${MATERI_DATA[index].kode} ditandai selesai!`, 'success');
+      } else {
+        appState.completedMateri.splice(pos, 1);
+      }
+      saveState();
+      renderMateri(document.getElementById('app-content'));
+    }
+
+    function checkMateriQuiz(materiIdx, chosenIdx) {
+      const kuis = MATERI_DATA[materiIdx].kuis;
+      const fb = document.getElementById('materi-quiz-feedback');
+      fb.classList.remove('hidden');
+
+      if (chosenIdx === kuis.benar) {
+        playSoundEffect('correct');
+        fb.className = 'mt-3 p-3.5 rounded-xl text-xs sm:text-sm font-medium bg-emerald-50 border border-emerald-200 text-emerald-800';
+        fb.innerHTML = `<i class="fa-solid fa-circle-check mr-1.5"></i><strong>Benar!</strong> ${kuis.bahas}`;
+        if (!appState.completedMateri.includes(materiIdx)) {
+          appState.completedMateri.push(materiIdx);
+          saveState();
+        }
+      } else {
+        playSoundEffect('wrong');
+        fb.className = 'mt-3 p-3.5 rounded-xl text-xs sm:text-sm font-medium bg-rose-50 border border-rose-200 text-rose-800';
+        fb.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1.5"></i><strong>Kurang tepat.</strong> Coba perhatikan kembali penjelasan di atas ya!`;
+      }
+    }
+
+    /* ============================================================================
+       10. MENU 2: SIMULASI MENJADI PENCERAMAH MUDA (8 TAHAPAN)
+       ============================================================================ */
+    function renderSimulasi(container) {
+      const temas = Object.keys(SIMULASI_TEMPLATES);
+
+      container.innerHTML = `
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Kolom Kiri: 8 Tahapan Penyusunan Ceramah -->
+          <div class="lg:col-span-7 bg-white rounded-3xl p-6 border border-slate-200 shadow-sm space-y-4">
+            <div class="border-b border-slate-100 pb-3">
+              <span class="text-xs font-bold uppercase text-royal-600">8 Langkah Terpandu</span>
+              <h2 class="font-display text-xl font-extrabold text-navy-900">Simulasi Menjadi Penceramah Muda</h2>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <!-- Tahap 1 -->
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">1. Pilih Tema Ceramah</label>
+                <select id="sim-tema" onchange="onSimTemaChange(this.value)" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm bg-slate-50 focus:bg-white focus:border-royal-600 outline-none">
+                  ${temas.map(t => `<option value="${t}" ${simState.tema === t ? 'selected' : ''}>${t}</option>`).join('')}
+                </select>
+              </div>
+              <!-- Tahap 2 -->
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">2. Tentukan Tujuan Ceramah</label>
+                <select id="sim-tujuan" onchange="simState.tujuan=this.value; updateSimPreview();" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm bg-slate-50 outline-none">
+                  <option ${simState.tujuan.includes('Persuasif') ? 'selected' : ''}>Persuasif (Mengajak & Menggerakkan)</option>
+                  <option ${simState.tujuan.includes('Informatif') ? 'selected' : ''}>Informatif (Menambah Wawasan)</option>
+                  <option ${simState.tujuan.includes('Argumentatif') ? 'selected' : ''}>Argumentatif (Meyakinkan dengan Fakta)</option>
+                </select>
+              </div>
+              <!-- Tahap 3 -->
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">3. Pilih Sasaran Audiens</label>
+                <select id="sim-audiens" onchange="simState.audiens=this.value; updateSimPreview();" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm bg-slate-50 outline-none">
+                  <option>Siswa-siswi SMK Kelas XII</option>
+                  <option>Seluruh Warga Sekolah & Guru</option>
+                  <option>Peserta Pembekalan PKL / Dunia Industri</option>
+                  <option>Komunitas Remaja & Karang Taruna</option>
+                </select>
+              </div>
+              <!-- Tahap 7 -->
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">7. Teknik Penyampaian</label>
+                <select id="sim-teknik" onchange="simState.teknik=this.value; updateSimPreview();" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm bg-slate-50 outline-none">
+                  <option>Ekstemporan (Kerangka Poin & Kontak Mata Aktif)</option>
+                  <option>Manuskrip (Membaca Naskah Resmi dengan Intonasi Tegas)</option>
+                  <option>Memoriter (Menghafal Naskah & Gestur Ekspresif)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Tahap 4 -->
+            <div>
+              <label class="block text-xs font-bold text-blue-700 mb-1">4. Susun Pembukaan (Salam, Sapaan & Pengantar)</label>
+              <textarea id="sim-pembuka" rows="2" oninput="simState.pembuka=this.value; updateSimPreview();" class="w-full rounded-xl border border-slate-300 p-3 text-xs sm:text-sm focus:border-royal-600 outline-none">${simState.pembuka}</textarea>
+            </div>
+
+            <!-- Tahap 5 -->
+            <div>
+              <label class="block text-xs font-bold text-purple-700 mb-1">5. Susun Isi Ceramah (Rangkaian Argumentasi & Fakta)</label>
+              <textarea id="sim-isi" rows="3" oninput="simState.isi=this.value; updateSimPreview();" class="w-full rounded-xl border border-slate-300 p-3 text-xs sm:text-sm focus:border-royal-600 outline-none">${simState.isi}</textarea>
+            </div>
+
+            <!-- Tahap 6 -->
+            <div>
+              <label class="block text-xs font-bold text-teal-700 mb-1">6. Susun Penutup (Simpulan, Ajakan & Salam)</label>
+              <textarea id="sim-penutup" rows="2" oninput="simState.penutup=this.value; updateSimPreview();" class="w-full rounded-xl border border-slate-300 p-3 text-xs sm:text-sm focus:border-royal-600 outline-none">${simState.penutup}</textarea>
+            </div>
+          </div>
+
+          <!-- Kolom Kanan: Panggung Podium Virtual & Hasil Naskah (Tahap 8) -->
+          <div class="lg:col-span-5 space-y-5">
+            <!-- Ilustrasi Podium & Audiens Virtual -->
+            <div class="hero-gradient rounded-3xl p-5 text-white shadow-xl">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-xs font-bold uppercase tracking-wider text-tosca-400 flex items-center gap-1.5">
+                  <span class="w-2 h-2 rounded-full bg-rose-500 animate-ping"></span> Panggung Virtual Live
+                </span>
+                <span id="sim-audience-badge" class="text-[11px] px-2.5 py-1 rounded-full bg-white/15">${simState.audiens}</span>
+              </div>
+
+              <!-- SVG Mini Podium & Audiens -->
+              <svg viewBox="0 0 360 150" class="w-full h-auto rounded-2xl bg-slate-950/60 border border-white/10 p-2">
+                <circle cx="180" cy="48" r="16" fill="#FDBA74"/>
+                <path d="M155 85 C155 68, 205 68, 205 85 Z" fill="#2563EB"/>
+                <polygon points="150,82 210,82 203,125 157,125" fill="#6D28D9"/>
+                <rect x="145" y="78" width="70" height="6" rx="3" fill="#2DD4BF"/>
+                <line x1="192" y1="78" x2="186" y2="62" stroke="#E2E8F0" stroke-width="2"/>
+                <!-- Audiens -->
+                <g fill="#1E293B">
+                  <circle cx="45" cy="128" r="10"/><circle cx="95" cy="125" r="10"/><circle cx="145" cy="130" r="9"/>
+                  <circle cx="215" cy="130" r="9"/><circle cx="265" cy="125" r="10"/><circle cx="315" cy="128" r="10"/>
+                </g>
+              </svg>
+
+              <div class="mt-4 flex flex-wrap gap-2">
+                <button onclick="playSimulatedSpeech()" class="flex-1 py-2.5 px-4 rounded-xl bg-tosca-500 hover:bg-tosca-400 text-navy-950 font-bold text-xs sm:text-sm flex items-center justify-center gap-2 transition">
+                  <i class="fa-solid fa-microphone-lines"></i> Simulasikan Suara Penceramah
+                </button>
+                <button onclick="stopSpeech()" class="py-2.5 px-3 rounded-xl bg-white/15 hover:bg-white/25 text-white text-xs font-semibold">
+                  <i class="fa-solid fa-stop"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Tahap 8: Hasil Naskah Ceramah Utuh -->
+            <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm">
+              <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-3">
+                <h3 class="font-display font-bold text-sm text-navy-900">8. Hasil Naskah Ceramah Siap Tampil</h3>
+                <button onclick="copySimulasiText()" class="text-xs font-semibold text-royal-600 hover:underline flex items-center gap-1">
+                  <i class="fa-regular fa-copy"></i> Salin Naskah
+                </button>
+              </div>
+              <div id="sim-preview-box" class="space-y-2.5 text-xs sm:text-sm text-slate-700 leading-relaxed max-h-72 overflow-y-auto pr-1">
+                <!-- Diisi dinamis -->
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      updateSimPreview();
+    }
+
+    function onSimTemaChange(tema) {
+      simState.tema = tema;
+      const tpl = SIMULASI_TEMPLATES[tema];
+      if (tpl) {
+        simState.pembuka = tpl.pembuka;
+        simState.isi = tpl.isi;
+        simState.penutup = tpl.penutup;
+        document.getElementById('sim-pembuka').value = tpl.pembuka;
+        document.getElementById('sim-isi').value = tpl.isi;
+        document.getElementById('sim-penutup').value = tpl.penutup;
+      }
+      updateSimPreview();
+    }
+
+    function updateSimPreview() {
+      const box = document.getElementById('sim-preview-box');
+      const badge = document.getElementById('sim-audience-badge');
+      if (badge) badge.textContent = simState.audiens;
+      if (!box) return;
+      box.innerHTML = `
+        <div class="p-2.5 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+          <strong>Tema:</strong> ${simState.tema} • <strong>Tujuan:</strong> ${simState.tujuan}<br>
+          <strong>Teknik:</strong> ${simState.teknik}
+        </div>
+        <p><strong class="text-blue-700">[Pembukaan]</strong> ${simState.pembuka}</p>
+        <p><strong class="text-purple-700">[Isi]</strong> ${simState.isi}</p>
+        <p><strong class="text-teal-700">[Penutup]</strong> ${simState.penutup}</p>
+      `;
+    }
+
+    function playSimulatedSpeech() {
+      const fullText = `${simState.pembuka} ${simState.isi} ${simState.penutup}`;
+      speakText(fullText, 0.96);
+      showToast('Membacakan simulasi ceramah di panggung virtual...', 'info');
+    }
+
+    function copySimulasiText() {
+      const text = `TEMA: ${simState.tema}\nTUJUAN: ${simState.tujuan}\nAUDIENS: ${simState.audiens}\n\n${simState.pembuka}\n\n${simState.isi}\n\n${simState.penutup}`;
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      document.body.appendChild(ta);
+      ta.select();
+      document.execCommand('copy');
+      document.body.removeChild(ta);
+      showToast('Naskah ceramah berhasil disalin ke papan klip!', 'success');
+    }
+
+    /* ============================================================================
+       11. MENU 3: PRAKTIKUM PROYEK ("PROYEK MENJADI PENCERAMAH INSPIRATIF")
+       ============================================================================ */
+    let practiceTimerInterval = null;
+    let practiceSeconds = 0;
+
+    function renderPraktikum(container) {
+      const p = appState.praktikumData;
+      const rubrikLabels = [
+        'Kesesuaian isi dengan tema (20%)',
+        'Kelengkapan struktur: Pembukaan, Isi, Penutup (20%)',
+        'Penggunaan bahasa santun & kaidah kebahasaan (20%)',
+        'Artikulasi dan intonasi vokal (20%)',
+        'Ekspresi wajah dan kepercayaan diri (20%)'
+      ];
+
+      container.innerHTML = `
+        <div class="space-y-6">
+          <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm">
+            <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-100 pb-4 mb-5">
+              <div>
+                <span class="text-xs font-bold uppercase text-pink-600">7 Tahapan Proyek Siswa</span>
+                <h2 class="font-display text-xl md:text-2xl font-extrabold text-navy-900">Proyek Menjadi Penceramah Inspiratif</h2>
+              </div>
+              <button onclick="savePraktikum()" class="px-5 py-2.5 rounded-xl bg-royal-600 hover:bg-royal-700 text-white text-xs sm:text-sm font-bold flex items-center gap-2 shadow transition">
+                <i class="fa-solid fa-floppy-disk"></i> Simpan Progres Proyek
+              </button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+              <!-- Tahap 1 - 4: Perencanaan & Penulisan Naskah -->
+              <div class="lg:col-span-7 space-y-4">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">1. Topik Ceramah Pilihan</label>
+                    <input id="prak-topik" type="text" value="${p.topik}" placeholder="Contoh: Etika Digital Siswa SMK" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm outline-none focus:border-royal-600" />
+                  </div>
+                  <div>
+                    <label class="block text-xs font-bold text-slate-700 mb-1">2. Sumber Informasi / Data Pendukung</label>
+                    <input id="prak-info" type="text" value="${p.info}" placeholder="Contoh: Data Kemkominfo / Artikel Jurnal" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm outline-none focus:border-royal-600" />
+                  </div>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">3. Kerangka Ceramah (Poin Pembukaan, Isi, Penutup)</label>
+                  <textarea id="prak-kerangka" rows="2" placeholder="Tuliskan poin-poin utama ceramahmu..." class="w-full rounded-xl border border-slate-300 p-3 text-xs sm:text-sm outline-none focus:border-royal-600">${p.kerangka}</textarea>
+                </div>
+
+                <div>
+                  <div class="flex justify-between items-center mb-1">
+                    <label class="text-xs font-bold text-slate-700">4. Penulisan Naskah Ceramah Lengkap (Target 3–5 Menit)</label>
+                    <span id="prak-word-count" class="text-[11px] font-semibold text-tosca-600">0 kata</span>
+                  </div>
+                  <textarea id="prak-naskah" rows="7" oninput="updateWordCount()" placeholder="Tulis naskah ceramah lengkapmu secara sistematis, logis, dan kreatif di sini..." class="w-full rounded-xl border border-slate-300 p-3.5 text-xs sm:text-sm leading-relaxed outline-none focus:border-royal-600">${p.naskah}</textarea>
+                </div>
+
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">7. Refleksi Setelah Praktik Ceramah</label>
+                  <textarea id="prak-refleksi" rows="2" placeholder="Apa tantangan yang kamu rasakan saat berlatih dan hal apa yang perlu ditingkatkan?" class="w-full rounded-xl border border-slate-300 p-3 text-xs sm:text-sm outline-none focus:border-royal-600">${p.refleksi}</textarea>
+                </div>
+              </div>
+
+              <!-- Tahap 5 - 6: Timer Latihan 3-5 Menit, Pratinjau Video Lokal & Rubrik -->
+              <div class="lg:col-span-5 space-y-5">
+                <!-- Stopwatch Latihan 3-5 Menit -->
+                <div class="p-5 rounded-2xl bg-navy-900 text-white">
+                  <div class="flex items-center justify-between mb-2">
+                    <span class="text-xs font-bold uppercase text-tosca-400">5 & 6. Stopwatch Praktik (3–5 Menit)</span>
+                    <i class="fa-solid fa-stopwatch text-tosca-400"></i>
+                  </div>
+                  <div id="practice-timer-display" class="font-display text-3xl font-extrabold text-center py-2 tracking-wider">00:00</div>
+                  <p class="text-[11px] text-slate-300 text-center mb-3">Target durasi ideal: 03:00 – 05:00 menit</p>
+                  <div class="flex justify-center gap-2">
+                    <button onclick="startPracticeTimer()" class="px-3.5 py-2 rounded-xl bg-tosca-500 hover:bg-tosca-400 text-navy-950 font-bold text-xs">Mulai</button>
+                    <button onclick="pausePracticeTimer()" class="px-3.5 py-2 rounded-xl bg-white/15 hover:bg-white/25 text-white font-semibold text-xs">Jeda</button>
+                    <button onclick="resetPracticeTimer()" class="px-3.5 py-2 rounded-xl bg-rose-500/80 hover:bg-rose-500 text-white font-semibold text-xs">Reset</button>
+                    <button onclick="speakText(document.getElementById('prak-naskah').value || 'Silakan tulis naskah ceramah terlebih dahulu.')" class="px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-semibold text-xs" title="Uji Dengar Naskah">
+                      <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Fasilitas Pilih File Video Rekaman untuk Pratinjau Lokal -->
+                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-2">
+                  <label class="block text-xs font-bold text-navy-900">
+                    <i class="fa-solid fa-video text-pink-600 mr-1"></i> Pratinjau Video Rekaman Ceramah (Opsional)
+                  </label>
+                  <input type="file" accept="video/*" onchange="previewLocalVideo(this)" class="block w-full text-xs text-slate-600 file:mr-3 file:py-2 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-indigo-100 file:text-royal-700 hover:file:bg-indigo-200 cursor-pointer" />
+                  <p class="text-[11px] text-slate-500">Catatan: File video diputar langsung secara lokal di browser untuk evaluasi mandiri dan tidak diunggah ke server eksternal.</p>
+                  <video id="local-video-player" controls class="hidden w-full rounded-xl mt-2 max-h-48 bg-black"></video>
+                </div>
+
+                <!-- Rubrik Penilaian Mandiri (5 Aspek x 20% = 100%) -->
+                <div class="p-4 rounded-2xl bg-indigo-50/70 border border-indigo-100 space-y-3">
+                  <div class="flex items-center justify-between">
+                    <h4 class="font-display font-bold text-xs uppercase text-royal-700">Rubrik Penilaian (Total 100%)</h4>
+                    <span id="rubrik-total-score" class="px-2.5 py-0.5 rounded-full bg-royal-600 text-white text-xs font-bold">80 / 100</span>
+                  </div>
+                  <div class="space-y-2 text-xs">
+                    ${rubrikLabels.map((lbl, i) => `
+                      <div class="flex items-center justify-between gap-2 bg-white p-2 rounded-xl border border-indigo-100">
+                        <span class="text-slate-700 font-medium">${lbl}</span>
+                        <select onchange="updateRubrikScore(${i}, this.value)" class="rounded-lg border border-slate-300 px-2 py-1 font-bold text-navy-900">
+                          <option value="1" ${p.rubrik[i]==1?'selected':''}>1 (Kurang)</option>
+                          <option value="2" ${p.rubrik[i]==2?'selected':''}>2 (Cukup)</option>
+                          <option value="3" ${p.rubrik[i]==3?'selected':''}>3 (Baik)</option>
+                          <option value="4" ${p.rubrik[i]==4?'selected':''}>4 (Sangat Baik)</option>
+                          <option value="5" ${p.rubrik[i]==5?'selected':''}>5 (Istimewa)</option>
+                        </select>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      updateWordCount();
+      calcRubrikTotal();
+    }
+
+    function updateWordCount() {
+      const txt = document.getElementById('prak-naskah')?.value.trim() || '';
+      const words = txt ? txt.split(/\s+/).length : 0;
+      const el = document.getElementById('prak-word-count');
+      if (el) el.textContent = `${words} kata (± ${Math.max(1, Math.round(words / 120))} menit bicara)`;
+    }
+
+    function updateRubrikScore(idx, val) {
+      appState.praktikumData.rubrik[idx] = parseInt(val);
+      calcRubrikTotal();
+    }
+
+    function calcRubrikTotal() {
+      const sum = appState.praktikumData.rubrik.reduce((a, b) => a + b, 0); // max 25
+      const score100 = Math.round((sum / 25) * 100);
+      const el = document.getElementById('rubrik-total-score');
+      if (el) el.textContent = `${score100} / 100`;
+    }
+
+    function savePraktikum() {
+      appState.praktikumData.topik = document.getElementById('prak-topik').value;
+      appState.praktikumData.info = document.getElementById('prak-info').value;
+      appState.praktikumData.kerangka = document.getElementById('prak-kerangka').value;
+      appState.praktikumData.naskah = document.getElementById('prak-naskah').value;
+      appState.praktikumData.refleksi = document.getElementById('prak-refleksi').value;
+      saveState();
+      showToast('Data proyek praktikum berhasil disimpan di browser!', 'success');
+    }
+
+    function previewLocalVideo(input) {
+      const player = document.getElementById('local-video-player');
+      if (input.files && input.files[0]) {
+        const url = URL.createObjectURL(input.files[0]);
+        player.src = url;
+        player.classList.remove('hidden');
+        showToast('Video berhasil dimuat untuk pratinjau lokal.', 'info');
+      }
+    }
+
+    function startPracticeTimer() {
+      if (practiceTimerInterval) return;
+      practiceTimerInterval = setInterval(() => {
+        practiceSeconds++;
+        const mins = String(Math.floor(practiceSeconds / 60)).padStart(2, '0');
+        const secs = String(practiceSeconds % 60).padStart(2, '0');
+        const disp = document.getElementById('practice-timer-display');
+        if (disp) disp.textContent = `${mins}:${secs}`;
+      }, 1000);
+    }
+
+    function pausePracticeTimer() {
+      clearInterval(practiceTimerInterval);
+      practiceTimerInterval = null;
+    }
+
+    function resetPracticeTimer() {
+      pausePracticeTimer();
+      practiceSeconds = 0;
+      const disp = document.getElementById('practice-timer-display');
+      if (disp) disp.textContent = '00:00';
+    }
+
+    /* ============================================================================
+       12. MENU 4: GAME EDUKASI (4 PERMAINAN INTERAKTIF LENGKAP)
+       ============================================================================ */
+    let activeGame = 'menu';
+    let gameTimerRef = null;
+
+    function renderGameMenu(container) {
+      clearInterval(gameTimerRef);
+      const s = appState.gameScores;
+      const total = s.struktur + s.puzzle + s.kuis + s.detektif;
+
+      container.innerHTML = `
+        <div class="space-y-6">
+          <!-- Papan Skor Utama -->
+          <div class="card-gradient rounded-3xl p-6 text-white flex flex-wrap items-center justify-between gap-4 shadow-lg">
+            <div>
+              <span class="text-xs font-bold uppercase text-tosca-300">Gamifikasi Pembelajaran</span>
+              <h2 class="font-display text-xl md:text-2xl font-extrabold">Arena Game Edukasi Teks Ceramah</h2>
+              <p class="text-xs sm:text-sm text-indigo-100 mt-1">Kumpulkan poin dan bintang dari keempat permainan edukatif!</p>
+            </div>
+            <div class="flex items-center gap-4 bg-white/10 backdrop-blur px-5 py-3 rounded-2xl border border-white/15">
+              <div class="text-center">
+                <div class="text-xs text-indigo-200">Total Skor</div>
+                <div class="font-display text-2xl font-extrabold text-amber-300">${total}</div>
+              </div>
+              <div class="h-8 w-px bg-white/20"></div>
+              <div class="text-center">
+                <div class="text-xs text-indigo-200">Bintang</div>
+                <div class="text-amber-300 text-sm">${'★'.repeat(Math.min(5, Math.floor(total / 80) + (total > 0 ? 1 : 0)))}${'☆'.repeat(Math.max(0, 5 - (Math.floor(total / 80) + (total > 0 ? 1 : 0))))}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 Kartu Game -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <!-- Game 1 -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-xs font-bold">GAME 1 • LEVEL 1</span>
+                  <span class="text-xs font-bold text-amber-600"><i class="fa-solid fa-star mr-1"></i>Skor Terbaik: ${s.struktur}</span>
+                </div>
+                <h3 class="font-display text-lg font-extrabold text-navy-900 mb-1">Tebak Struktur Ceramah</h3>
+                <p class="text-xs sm:text-sm text-slate-600">Tentukan apakah kutipan teks yang muncul termasuk bagian Pembukaan, Isi, atau Penutup sebelum waktu habis!</p>
+              </div>
+              <button onclick="startGameStruktur()" class="mt-5 w-full py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm flex items-center justify-center gap-2 transition">
+                <i class="fa-solid fa-play"></i> Mainkan Game 1
+              </button>
+            </div>
+
+            <!-- Game 2 -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="px-3 py-1 rounded-full bg-purple-100 text-purple-800 text-xs font-bold">GAME 2 • LEVEL 2</span>
+                  <span class="text-xs font-bold text-amber-600"><i class="fa-solid fa-star mr-1"></i>Skor Terbaik: ${s.puzzle}</span>
+                </div>
+                <h3 class="font-display text-lg font-extrabold text-navy-900 mb-1">Puzzle Ceramah</h3>
+                <p class="text-xs sm:text-sm text-slate-600">Susun potongan paragraf ceramah yang acak menjadi urutan naskah yang sistematis dan padu.</p>
+              </div>
+              <button onclick="startGamePuzzle()" class="mt-5 w-full py-3 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm flex items-center justify-center gap-2 transition">
+                <i class="fa-solid fa-puzzle-piece"></i> Mainkan Game 2
+              </button>
+            </div>
+
+            <!-- Game 3 -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold">GAME 3 • LEVEL 3</span>
+                  <span class="text-xs font-bold text-amber-600"><i class="fa-solid fa-star mr-1"></i>Skor Terbaik: ${s.kuis}</span>
+                </div>
+                <h3 class="font-display text-lg font-extrabold text-navy-900 mb-1">Kuis Kilat Ceramah</h3>
+                <p class="text-xs sm:text-sm text-slate-600">Jawab 6 pertanyaan pilihan ganda berkecepatan tinggi dengan batas waktu 15 detik per soal!</p>
+              </div>
+              <button onclick="startGameKuis()" class="mt-5 w-full py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-navy-950 font-bold text-sm flex items-center justify-center gap-2 transition">
+                <i class="fa-solid fa-bolt"></i> Mainkan Game 3
+              </button>
+            </div>
+
+            <!-- Game 4 -->
+            <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-3">
+                  <span class="px-3 py-1 rounded-full bg-teal-100 text-teal-800 text-xs font-bold">GAME 4 • LEVEL 4</span>
+                  <span class="text-xs font-bold text-amber-600"><i class="fa-solid fa-star mr-1"></i>Skor Terbaik: ${s.detektif}</span>
+                </div>
+                <h3 class="font-display text-lg font-extrabold text-navy-900 mb-1">Detektif Kebahasaan</h3>
+                <p class="text-xs sm:text-sm text-slate-600">Analisis kalimat ceramah dan temukan kata persuasif, konjungsi kausalitas, kata kerja mental, serta kalimat retoris.</p>
+              </div>
+              <button onclick="startGameDetektif()" class="mt-5 w-full py-3 rounded-xl bg-tosca-600 hover:bg-tosca-700 text-white font-bold text-sm flex items-center justify-center gap-2 transition">
+                <i class="fa-solid fa-magnifying-glass"></i> Mainkan Game 4
+              </button>
+            </div>
+          </div>
+
+          <!-- Area Arena Permainan Aktif -->
+          <div id="game-arena"></div>
+        </div>
+      `;
+    }
+
+    // --- GAME 1: TEBAK STRUKTUR CERAMAH ---
+    let g1Idx = 0, g1Score = 0, g1Time = 60;
+    function startGameStruktur() {
+      speakText('Game satu: Tebak Struktur Ceramah. Tentukan apakah kutipan termasuk Pembukaan, Isi, atau Penutup.');
+      g1Idx = 0; g1Score = 0; g1Time = 60;
+      clearInterval(gameTimerRef);
+      gameTimerRef = setInterval(() => {
+        g1Time--;
+        const tEl = document.getElementById('g1-timer');
+        if (tEl) tEl.textContent = `${g1Time}d`;
+        if (g1Time <= 0) finishGame1();
+      }, 1000);
+      renderGame1Step();
+    }
+
+    function renderGame1Step() {
+      const arena = document.getElementById('game-arena');
+      if (g1Idx >= GAME_STRUKTUR_SOAL.length) {
+        finishGame1();
+        return;
+      }
+      const item = GAME_STRUKTUR_SOAL[g1Idx];
+      arena.innerHTML = `
+        <div class="bg-white rounded-3xl p-6 border-2 border-blue-500 shadow-xl fade-in">
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-slate-100 mb-4">
+            <span class="font-display font-bold text-blue-700">GAME 1: TEBAK STRUKTUR (${g1Idx + 1}/${GAME_STRUKTUR_SOAL.length})</span>
+            <div class="flex items-center gap-3 text-xs font-bold">
+              <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-800">Poin: ${g1Score}</span>
+              <span id="g1-timer" class="px-3 py-1 rounded-full bg-rose-100 text-rose-700">${g1Time}d</span>
+              <button onclick="renderGameMenu(document.getElementById('app-content'))" class="text-slate-500 hover:text-slate-800">Tutup</button>
+            </div>
+          </div>
+          <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 text-sm sm:text-base font-medium text-navy-900 italic mb-5">
+            ${item.teks}
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            ${['Pembukaan', 'Isi', 'Penutup'].map(opt => `
+              <button onclick="answerGame1('${opt}')" class="py-3.5 px-4 rounded-2xl bg-navy-900 hover:bg-blue-600 text-white font-bold text-sm transition shadow">
+                ${opt}
+              </button>
+            `).join('')}
+          </div>
+          <div id="g1-fb" class="mt-4 hidden p-3 rounded-xl text-xs sm:text-sm font-semibold"></div>
+        </div>
+      `;
+    }
+
+    function answerGame1(choice) {
+      const item = GAME_STRUKTUR_SOAL[g1Idx];
+      const fb = document.getElementById('g1-fb');
+      fb.classList.remove('hidden');
+      if (choice === item.jawab) {
+        g1Score += 20;
+        playSoundEffect('correct');
+        fb.className = 'mt-4 p-3 rounded-xl text-xs sm:text-sm font-semibold bg-emerald-50 text-emerald-800 border border-emerald-200';
+        fb.innerHTML = `Benar! (+20 poin) — ${item.info}`;
+      } else {
+        playSoundEffect('wrong');
+        fb.className = 'mt-4 p-3 rounded-xl text-xs sm:text-sm font-semibold bg-rose-50 text-rose-800 border border-rose-200';
+        fb.innerHTML = `Kurang tepat. Jawaban yang benar: <strong>${item.jawab}</strong> (${item.info})`;
+      }
+      setTimeout(() => {
+        g1Idx++;
+        renderGame1Step();
+      }, 1200);
+    }
+
+    function finishGame1() {
+      clearInterval(gameTimerRef);
+      if (g1Score > appState.gameScores.struktur) {
+        appState.gameScores.struktur = g1Score;
+        saveState();
+      }
+      document.getElementById('game-arena').innerHTML = `
+        <div class="bg-white rounded-3xl p-6 border-2 border-emerald-500 text-center space-y-3 shadow-xl">
+          <div class="text-4xl">🏆</div>
+          <h3 class="font-display text-xl font-extrabold text-navy-900">Game 1 Selesai!</h3>
+          <p class="text-sm text-slate-600">Skor yang kamu peroleh: <strong class="text-blue-600 text-lg">${g1Score} Poin</strong></p>
+          <div class="flex justify-center gap-3 pt-2">
+            <button onclick="startGameStruktur()" class="px-5 py-2.5 rounded-xl bg-blue-600 text-white font-bold text-xs sm:text-sm">Ulang Permainan</button>
+            <button onclick="renderGameMenu(document.getElementById('app-content'))" class="px-5 py-2.5 rounded-xl bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm">Kembali ke Daftar Gim</button>
+          </div>
+        </div>
+      `;
+    }
+
+    // --- GAME 2: PUZZLE CERAMAH ---
+    let puzzleOrder = [];
+    function startGamePuzzle() {
+      speakText('Game dua: Puzzle Ceramah. Susun lima paragraf ceramah berikut menjadi urutan yang padu dari awal hingga akhir.');
+      puzzleOrder = [...GAME_PUZZLE_DATA].sort(() => Math.random() - 0.5);
+      renderGamePuzzleStep();
+    }
+
+    function renderGamePuzzleStep() {
+      const arena = document.getElementById('game-arena');
+      arena.innerHTML = `
+        <div class="bg-white rounded-3xl p-6 border-2 border-purple-500 shadow-xl fade-in">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-4">
+            <span class="font-display font-bold text-purple-700">GAME 2: PUZZLE URUTAN PARAGRAF CERAMAH</span>
+            <button onclick="renderGameMenu(document.getElementById('app-content'))" class="text-xs font-bold text-slate-500">Tutup</button>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-600 mb-4">Gunakan tombol panah atas/bawah untuk menyusun urutan paragraf ceramah yang benar (1 sampai 5):</p>
+          <div class="space-y-2.5 mb-5">
+            ${puzzleOrder.map((p, idx) => `
+              <div class="flex items-center gap-3 p-3.5 rounded-2xl bg-slate-50 border border-slate-200">
+                <span class="w-7 h-7 rounded-xl bg-purple-600 text-white font-bold text-xs flex items-center justify-center shrink-0">${idx + 1}</span>
+                <p class="flex-1 text-xs sm:text-sm text-slate-800">${p.teks}</p>
+                <div class="flex flex-col gap-1 shrink-0">
+                  <button onclick="movePuzzle(${idx}, -1)" ${idx === 0 ? 'disabled' : ''} class="w-7 h-7 rounded-lg bg-white border border-slate-300 hover:bg-purple-100 disabled:opacity-30 text-xs"><i class="fa-solid fa-chevron-up"></i></button>
+                  <button onclick="movePuzzle(${idx}, 1)" ${idx === puzzleOrder.length - 1 ? 'disabled' : ''} class="w-7 h-7 rounded-lg bg-white border border-slate-300 hover:bg-purple-100 disabled:opacity-30 text-xs"><i class="fa-solid fa-chevron-down"></i></button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+          <div class="flex flex-wrap gap-3">
+            <button onclick="checkPuzzleOrder()" class="px-6 py-3 rounded-xl bg-purple-600 hover:bg-purple-700 text-white font-bold text-sm shadow">Periksa Urutan</button>
+            <button onclick="startGamePuzzle()" class="px-5 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm">Acak Ulang</button>
+          </div>
+          <div id="puzzle-fb" class="hidden mt-4 p-3.5 rounded-xl text-xs sm:text-sm font-semibold"></div>
+        </div>
+      `;
+    }
+
+    function movePuzzle(idx, dir) {
+      const target = idx + dir;
+      if (target < 0 || target >= puzzleOrder.length) return;
+      [puzzleOrder[idx], puzzleOrder[target]] = [puzzleOrder[target], puzzleOrder[idx]];
+      renderGamePuzzleStep();
+    }
+
+    function checkPuzzleOrder() {
+      let correctCount = 0;
+      puzzleOrder.forEach((p, idx) => {
+        if (p.id === idx + 1) correctCount++;
+      });
+      const fb = document.getElementById('puzzle-fb');
+      fb.classList.remove('hidden');
+      const score = correctCount * 20;
+      if (correctCount === 5) {
+        playSoundEffect('correct');
+        appState.gameScores.puzzle = Math.max(appState.gameScores.puzzle, 100);
+        saveState();
+        fb.className = 'mt-4 p-3.5 rounded-xl text-xs sm:text-sm font-semibold bg-emerald-50 border border-emerald-200 text-emerald-800';
+        fb.innerHTML = `Luar biasa! Urutan 100% sempurna (+100 poin). Struktur teks ceramah tersusun runtut dari salam pembuka hingga salam penutup.`;
+      } else {
+        playSoundEffect('wrong');
+        appState.gameScores.puzzle = Math.max(appState.gameScores.puzzle, score);
+        saveState();
+        fb.className = 'mt-4 p-3.5 rounded-xl text-xs sm:text-sm font-semibold bg-amber-50 border border-amber-200 text-amber-800';
+        fb.innerHTML = `Baru ${correctCount} dari 5 paragraf yang berada di posisi tepat (Skor sementara: ${score}). Periksa kembali posisi salam pembuka, isi argumentasi, dan salam penutup!`;
+      }
+    }
+
+    // --- GAME 3: KUIS KILAT ---
+    let g3Idx = 0, g3Score = 0, g3Timer = 15;
+    function startGameKuis() {
+      speakText('Game tiga: Kuis Kilat. Jawab setiap soal sebelum lima belas detik berakhir.');
+      g3Idx = 0; g3Score = 0;
+      renderGame3Step();
+    }
+
+    function renderGame3Step() {
+      clearInterval(gameTimerRef);
+      const arena = document.getElementById('game-arena');
+      if (g3Idx >= GAME_KUIS_KILAT.length) {
+        if (g3Score > appState.gameScores.kuis) {
+          appState.gameScores.kuis = g3Score;
+          saveState();
+        }
+        arena.innerHTML = `
+          <div class="bg-white rounded-3xl p-6 border-2 border-amber-500 text-center space-y-3 shadow-xl">
+            <div class="text-4xl">⚡</div>
+            <h3 class="font-display text-xl font-extrabold text-navy-900">Kuis Kilat Selesai!</h3>
+            <p class="text-sm text-slate-600">Skor Akhir Kamu: <strong class="text-amber-600 text-lg">${g3Score} Poin</strong></p>
+            <div class="flex justify-center gap-3 pt-2">
+              <button onclick="startGameKuis()" class="px-5 py-2.5 rounded-xl bg-amber-500 text-navy-950 font-bold text-xs sm:text-sm">Ulang Permainan</button>
+              <button onclick="renderGameMenu(document.getElementById('app-content'))" class="px-5 py-2.5 rounded-xl bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm">Selesai</button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+
+      g3Timer = 15;
+      const q = GAME_KUIS_KILAT[g3Idx];
+      arena.innerHTML = `
+        <div class="bg-white rounded-3xl p-6 border-2 border-amber-500 shadow-xl fade-in">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+            <span class="font-display font-bold text-amber-700">GAME 3: KUIS KILAT (${g3Idx + 1}/${GAME_KUIS_KILAT.length})</span>
+            <div class="flex items-center gap-2 text-xs font-bold">
+              <span class="px-3 py-1 rounded-full bg-indigo-100 text-indigo-800">Poin: ${g3Score}</span>
+              <span id="g3-t" class="px-3 py-1 rounded-full bg-rose-100 text-rose-700">15d</span>
+            </div>
+          </div>
+          <p class="font-bold text-base text-navy-900 mb-4">${q.q}</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            ${q.opts.map((op, i) => `
+              <button onclick="answerGame3(${i})" class="p-3.5 rounded-2xl bg-slate-50 hover:bg-amber-100 border border-slate-200 text-left text-xs sm:text-sm font-semibold text-navy-900 transition">
+                ${String.fromCharCode(65 + i)}. ${op}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+      gameTimerRef = setInterval(() => {
+        g3Timer--;
+        const tEl = document.getElementById('g3-t');
+        if (tEl) tEl.textContent = `${g3Timer}d`;
+        if (g3Timer <= 0) {
+          clearInterval(gameTimerRef);
+          playSoundEffect('wrong');
+          g3Idx++;
+          renderGame3Step();
+        }
+      }, 1000);
+    }
+
+    function answerGame3(choice) {
+      clearInterval(gameTimerRef);
+      const q = GAME_KUIS_KILAT[g3Idx];
+      if (choice === q.a) {
+        g3Score += 20;
+        playSoundEffect('correct');
+        showToast('Tepat sekali! +20 poin', 'success');
+      } else {
+        playSoundEffect('wrong');
+        showToast(`Kurang tepat! Jawaban: ${q.opts[q.a]}`, 'error');
+      }
+      g3Idx++;
+      renderGame3Step();
+    }
+
+    // --- GAME 4: DETEKTIF KEBAHASAAN ---
+    let g4Idx = 0, g4Score = 0;
+    function startGameDetektif() {
+      speakText('Game empat: Detektif Kebahasaan. Temukan kaidah kebahasaan yang tersembunyi di dalam kutipan teks ceramah.');
+      g4Idx = 0; g4Score = 0;
+      renderGame4Step();
+    }
+
+    function renderGame4Step() {
+      const arena = document.getElementById('game-arena');
+      if (g4Idx >= GAME_DETEKTIF_SOAL.length) {
+        if (g4Score > appState.gameScores.detektif) {
+          appState.gameScores.detektif = g4Score;
+          saveState();
+        }
+        arena.innerHTML = `
+          <div class="bg-white rounded-3xl p-6 border-2 border-tosca-500 text-center space-y-3 shadow-xl">
+            <div class="text-4xl">🕵️‍♂️</div>
+            <h3 class="font-display text-xl font-extrabold text-navy-900">Misi Detektif Selesai!</h3>
+            <p class="text-sm text-slate-600">Skor Detektif Kebahasaan: <strong class="text-tosca-600 text-lg">${g4Score} Poin</strong></p>
+            <div class="flex justify-center gap-3 pt-2">
+              <button onclick="startGameDetektif()" class="px-5 py-2.5 rounded-xl bg-tosca-600 text-white font-bold text-xs sm:text-sm">Ulang Permainan</button>
+              <button onclick="renderGameMenu(document.getElementById('app-content'))" class="px-5 py-2.5 rounded-xl bg-slate-200 text-slate-800 font-bold text-xs sm:text-sm">Selesai</button>
+            </div>
+          </div>
+        `;
+        return;
+      }
+      const item = GAME_DETEKTIF_SOAL[g4Idx];
+      arena.innerHTML = `
+        <div class="bg-white rounded-3xl p-6 border-2 border-tosca-500 shadow-xl fade-in">
+          <div class="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
+            <span class="font-display font-bold text-tosca-700">GAME 4: DETEKTIF KEBAHASAAN (${g4Idx + 1}/${GAME_DETEKTIF_SOAL.length})</span>
+            <span class="px-3 py-1 rounded-full bg-tosca-100 text-tosca-800 text-xs font-bold">Poin: ${g4Score}</span>
+          </div>
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-sm sm:text-base text-navy-900 mb-3">
+            ${item.kalimat}
+          </div>
+          <p class="font-bold text-sm text-royal-700 mb-3">${item.target}</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            ${item.opsi.map((op, idx) => `
+              <button onclick="answerGame4(${idx})" class="p-3.5 rounded-2xl bg-white hover:bg-tosca-50 border border-slate-300 text-left text-xs sm:text-sm font-bold text-navy-900 transition">
+                ${op}
+              </button>
+            `).join('')}
+          </div>
+        </div>
+      `;
+    }
+
+    function answerGame4(idx) {
+      const item = GAME_DETEKTIF_SOAL[g4Idx];
+      if (idx === item.benar) {
+        g4Score += 25;
+        playSoundEffect('correct');
+        showToast('Analisis Detektif Tepat! +25 poin', 'success');
+      } else {
+        playSoundEffect('wrong');
+        showToast(`Kurang tepat! Jawaban benar: ${item.opsi[item.benar]}`, 'error');
+      }
+      g4Idx++;
+      renderGame4Step();
+    }
+
+    /* ============================================================================
+       13. MENU 5: LKPD DIGITAL INTERAKTIF (7 KEGIATAN + SIMPAN + CETAK PDF)
+       ============================================================================ */
+    function renderLKPD(container) {
+      const d = appState.lkpdData;
+
+      container.innerHTML = `
+        <div class="space-y-5">
+          <!-- Toolbar LKPD -->
+          <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex flex-wrap items-center justify-between gap-3 no-print">
+            <div class="text-xs sm:text-sm text-slate-600">
+              <i class="fa-solid fa-circle-info text-sky-600 mr-1"></i> Lengkapi seluruh kegiatan di bawah ini, lalu klik <strong>Simpan Jawaban</strong> atau <strong>Cetak / Unduh PDF</strong>.
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <button onclick="saveLKPD()" class="px-4 py-2 rounded-xl bg-royal-600 hover:bg-royal-700 text-white text-xs sm:text-sm font-bold flex items-center gap-2 transition">
+                <i class="fa-solid fa-floppy-disk"></i> Simpan Jawaban
+              </button>
+              <button onclick="printLKPD()" class="px-4 py-2 rounded-xl bg-tosca-600 hover:bg-tosca-700 text-white text-xs sm:text-sm font-bold flex items-center gap-2 transition">
+                <i class="fa-solid fa-print"></i> Cetak LKPD / Unduh PDF
+              </button>
+            </div>
+          </div>
+
+          <!-- Lembar Kerja Utama (Area Cetak) -->
+          <div id="print-area" class="bg-white rounded-3xl p-6 md:p-8 border border-slate-200 shadow-sm space-y-6">
+            <!-- Kop LKPD -->
+            <div class="border-b-2 border-navy-900 pb-4 flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <span class="text-xs font-bold uppercase tracking-wider text-royal-600">SMK Perintis Adiluhur • Bahasa Indonesia Fase F</span>
+                <h2 class="font-display text-xl md:text-2xl font-extrabold text-navy-900">LEMBAR KERJA PESERTA DIDIK (LKPD) DIGITAL</h2>
+                <p class="text-xs text-slate-500">Materi: Menganalisis & Menyusun Teks Ceramah | Guru: Sri Kias Artiningsih, S.Pd.</p>
+              </div>
+            </div>
+
+            <!-- Identitas Peserta Didik -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 bg-slate-50 p-4 rounded-2xl border border-slate-200">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Nama Peserta Didik</label>
+                <input id="lkpd-nama" type="text" value="${d.nama}" placeholder="Nama lengkap..." class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm bg-white" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Kelas</label>
+                <input id="lkpd-kelas" type="text" value="${d.kelas}" placeholder="XII SMK..." class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm bg-white" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Nomor Absen</label>
+                <input id="lkpd-absen" type="text" value="${d.absen}" placeholder="Contoh: 14" class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm bg-white" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Kelompok</label>
+                <input id="lkpd-kelompok" type="text" value="${d.kelompok}" placeholder="Kelompok..." class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm bg-white" />
+              </div>
+            </div>
+
+            <!-- Kegiatan 1: Membaca Teks Ceramah -->
+            <div class="space-y-2">
+              <div class="flex items-center justify-between">
+                <h3 class="font-display font-bold text-base text-navy-900">Kegiatan 1: Membaca & Menyimak Teks Ceramah</h3>
+                <button onclick="speakText(document.getElementById('lkpd-teks-bacaan').innerText)" class="no-print text-xs font-bold text-royal-600 hover:underline">
+                  <i class="fa-solid fa-volume-high mr-1"></i>Dengarkan Teks
+                </button>
+              </div>
+              <div id="lkpd-teks-bacaan" class="p-4 rounded-2xl bg-indigo-50/60 border border-indigo-100 text-xs sm:text-sm text-slate-800 leading-relaxed space-y-2">
+                <p><strong>Judul: Etika Komunikasi dan Budaya Disiplin Kunci Sukses Siswa SMK</strong></p>
+                <p>Assalamualaikum warahmatullahi wabarakatuh. Yang saya hormati Bapak/Ibu guru serta sahabat-sahabat siswa kelas XII SMK Perintis Adiluhur yang berbahagia. Puji syukur kita panjatkan ke hadirat Tuhan Yang Maha Esa atas limpahan nikmat kesehatan sehingga kita dapat berkumpul pada pagi hari ini.</p>
+                <p>Hadirin sekalian, memasuki dunia industri yang serba kompetitif, kita harus menyadari bahwa keahlian praktik di bengkel atau laboratorium saja belum cukup. Banyak perusahaan mengeluhkan rendahnya kedisiplinan waktu serta kurangnya kesantunan komunikasi generasi muda. Akibatnya, peluang emas berkarier sering kali terlewat begitu saja. Bukankah kita semua ingin menjadi lulusan yang dibanggakan dan dipercaya dunia kerja?</p>
+                <p>Oleh karena itu, marilah kita membiasakan hadir tepat waktu, bertutur kata santun kepada guru maupun rekan sejawat, dan bertanggung jawab atas setiap tugas. Demikian ceramah singkat ini saya sampaikan. Mohon maaf atas segala kekhilafan. Wassalamualaikum warahmatullahi wabarakatuh.</p>
+              </div>
+            </div>
+
+            <!-- Kegiatan 2: Mengidentifikasi Struktur -->
+            <div class="space-y-2">
+              <h3 class="font-display font-bold text-base text-navy-900">Kegiatan 2: Mengidentifikasi Struktur Teks Ceramah</h3>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                <div>
+                  <label class="block text-xs font-bold text-blue-700 mb-1">1. Pembukaan (Bukti/Ringkasan)</label>
+                  <textarea id="lkpd-k2-1" rows="3" class="w-full rounded-xl border border-slate-300 p-2.5 text-xs sm:text-sm">${d.keg2_pembukaan}</textarea>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-purple-700 mb-1">2. Isi / Argumentasi (Bukti/Ringkasan)</label>
+                  <textarea id="lkpd-k2-2" rows="3" class="w-full rounded-xl border border-slate-300 p-2.5 text-xs sm:text-sm">${d.keg2_isi}</textarea>
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-teal-700 mb-1">3. Penutup / Simpulan (Bukti/Ringkasan)</label>
+                  <textarea id="lkpd-k2-3" rows="3" class="w-full rounded-xl border border-slate-300 p-2.5 text-xs sm:text-sm">${d.keg2_penutup}</textarea>
+                </div>
+              </div>
+            </div>
+
+            <!-- Kegiatan 3: Mengidentifikasi Kaidah Kebahasaan -->
+            <div class="space-y-2">
+              <h3 class="font-display font-bold text-base text-navy-900">Kegiatan 3: Mengidentifikasi Kaidah Kebahasaan</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">a. Kata Persuasif / Ajakan</label>
+                  <input id="lkpd-k3-1" type="text" value="${d.keg3_persuasif}" placeholder="Tuliskan contoh dari teks..." class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm" />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">b. Kata Ganti Orang</label>
+                  <input id="lkpd-k3-2" type="text" value="${d.keg3_ganti}" placeholder="Tuliskan contoh dari teks..." class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm" />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">c. Kata Kerja Mental</label>
+                  <input id="lkpd-k3-3" type="text" value="${d.keg3_mental}" placeholder="Tuliskan contoh dari teks..." class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm" />
+                </div>
+                <div>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">d. Konjungsi Kausalitas</label>
+                  <input id="lkpd-k3-4" type="text" value="${d.keg3_kausalitas}" placeholder="Tuliskan contoh dari teks..." class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Kegiatan 4 & 5 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="space-y-2">
+                <h3 class="font-display font-bold text-base text-navy-900">Kegiatan 4: Analisis Informasi & Argumentasi</h3>
+                <textarea id="lkpd-k4-1" rows="2" placeholder="Informasi utama dalam teks..." class="w-full rounded-xl border border-slate-300 p-2.5 text-xs sm:text-sm">${d.keg4_informasi}</textarea>
+                <textarea id="lkpd-k4-2" rows="2" placeholder="Argumentasi pendukung penceramah..." class="w-full rounded-xl border border-slate-300 p-2.5 text-xs sm:text-sm">${d.keg4_argumen}</textarea>
+              </div>
+              <div class="space-y-2">
+                <h3 class="font-display font-bold text-base text-navy-900">Kegiatan 5: Pesan Moral & Nilai Kehidupan</h3>
+                <textarea id="lkpd-k5-1" rows="2" placeholder="Pesan moral yang dapat dipetik..." class="w-full rounded-xl border border-slate-300 p-2.5 text-xs sm:text-sm">${d.keg5_moral}</textarea>
+                <textarea id="lkpd-k5-2" rows="2" placeholder="Nilai kehidupan (moral, sosial, pendidikan)..." class="w-full rounded-xl border border-slate-300 p-2.5 text-xs sm:text-sm">${d.keg5_nilai}</textarea>
+              </div>
+            </div>
+
+            <!-- Kegiatan 6: Menulis Teks Ceramah Sendiri -->
+            <div class="space-y-2">
+              <h3 class="font-display font-bold text-base text-navy-900">Kegiatan 6: Menulis Teks Ceramah Sendiri</h3>
+              <input id="lkpd-k6-judul" type="text" value="${d.keg6_judul}" placeholder="Judul Ceramah Karyamu..." class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm font-semibold" />
+              <textarea id="lkpd-k6-naskah" rows="5" placeholder="Tuliskan teks ceramah lengkap (Pembukaan, Isi, Penutup)..." class="w-full rounded-xl border border-slate-300 p-3 text-xs sm:text-sm">${d.keg6_naskah}</textarea>
+            </div>
+
+            <!-- Kegiatan 7: Refleksi Pembelajaran -->
+            <div class="space-y-2">
+              <h3 class="font-display font-bold text-base text-navy-900">Kegiatan 7: Refleksi Pembelajaran</h3>
+              <textarea id="lkpd-k7" rows="2" placeholder="Tuliskan pemahaman baru dan manfaat yang kamu peroleh setelah mengerjakan LKPD ini..." class="w-full rounded-xl border border-slate-300 p-3 text-xs sm:text-sm">${d.keg7_refleksi}</textarea>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function saveLKPD() {
+      appState.lkpdData = {
+        nama: document.getElementById('lkpd-nama').value,
+        kelas: document.getElementById('lkpd-kelas').value,
+        absen: document.getElementById('lkpd-absen').value,
+        kelompok: document.getElementById('lkpd-kelompok').value,
+        keg2_pembukaan: document.getElementById('lkpd-k2-1').value,
+        keg2_isi: document.getElementById('lkpd-k2-2').value,
+        keg2_penutup: document.getElementById('lkpd-k2-3').value,
+        keg3_persuasif: document.getElementById('lkpd-k3-1').value,
+        keg3_ganti: document.getElementById('lkpd-k3-2').value,
+        keg3_mental: document.getElementById('lkpd-k3-3').value,
+        keg3_kausalitas: document.getElementById('lkpd-k3-4').value,
+        keg4_informasi: document.getElementById('lkpd-k4-1').value,
+        keg4_argumen: document.getElementById('lkpd-k4-2').value,
+        keg5_moral: document.getElementById('lkpd-k5-1').value,
+        keg5_nilai: document.getElementById('lkpd-k5-2').value,
+        keg6_judul: document.getElementById('lkpd-k6-judul').value,
+        keg6_naskah: document.getElementById('lkpd-k6-naskah').value,
+        keg7_refleksi: document.getElementById('lkpd-k7').value
+      };
+      saveState();
+      showToast('Seluruh jawaban LKPD berhasil disimpan!', 'success');
+    }
+
+    function printLKPD() {
+      saveLKPD();
+      window.print();
+    }
+
+    /* ============================================================================
+       14. MENU 6: EVALUASI PEMBELAJARAN (25 SOAL + PEMBAHASAN + SERTIFIKAT)
+       ============================================================================ */
+    function renderEvaluasi(container) {
+      if (evalState.submitted && appState.evalResult) {
+        renderEvaluasiResult(container);
+        return;
+      }
+
+      const idx = evalState.currentIndex;
+      const soal = EVALUASI_SOAL[idx];
+      const answeredCount = evalState.answers.filter(a => a !== null && a !== '').length;
+      const pct = Math.round((answeredCount / EVALUASI_SOAL.length) * 100);
+
+      let typeLabel = 'Pilihan Ganda (1–15)';
+      if (soal.type === 'bs') typeLabel = 'Benar atau Salah (16–20)';
+      if (soal.type === 'uraian') typeLabel = 'Uraian Singkat (21–25)';
+
+      container.innerHTML = `
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          <!-- Kolom Kiri: Soal Aktif Satu per Satu -->
+          <div class="lg:col-span-8 bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <!-- Header Soal & Progres -->
+              <div class="flex flex-wrap items-center justify-between gap-2 pb-4 border-b border-slate-100 mb-5">
+                <span class="px-3 py-1 rounded-full bg-indigo-100 text-royal-700 text-xs font-bold">${typeLabel}</span>
+                <span class="text-xs font-semibold text-slate-500">Terjawab: ${answeredCount}/25 (${pct}%)</span>
+              </div>
+
+              <div class="mb-2 text-xs font-bold text-tosca-600 uppercase">Soal Nomor ${idx + 1}</div>
+              <p class="font-semibold text-base sm:text-lg text-navy-900 leading-relaxed mb-6">${soal.q}</p>
+
+              <!-- Input Jawaban Berdasarkan Tipe Soal -->
+              <div class="space-y-3">
+                ${soal.type === 'pg' ? soal.opts.map((opt, oIdx) => {
+                  const selected = evalState.answers[idx] === oIdx;
+                  return `
+                    <button onclick="setEvalAnswer(${idx}, ${oIdx})" class="w-full text-left p-4 rounded-2xl border-2 transition flex items-center gap-3 ${selected ? 'border-royal-600 bg-indigo-50 text-navy-900 font-bold' : 'border-slate-200 hover:border-indigo-300 text-slate-700'}">
+                      <span class="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${selected ? 'bg-royal-600 text-white' : 'bg-slate-100 text-slate-600'}">${String.fromCharCode(65 + oIdx)}</span>
+                      <span class="text-xs sm:text-sm">${opt}</span>
+                    </button>
+                  `;
+                }).join('') : ''}
+
+                ${soal.type === 'bs' ? `
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <button onclick="setEvalAnswer(${idx}, true)" class="p-5 rounded-2xl border-2 font-bold text-base flex items-center justify-center gap-2 transition ${evalState.answers[idx] === true ? 'border-emerald-600 bg-emerald-50 text-emerald-800' : 'border-slate-200 hover:border-emerald-300 text-slate-700'}">
+                      <i class="fa-solid fa-circle-check text-xl"></i> BENAR
+                    </button>
+                    <button onclick="setEvalAnswer(${idx}, false)" class="p-5 rounded-2xl border-2 font-bold text-base flex items-center justify-center gap-2 transition ${evalState.answers[idx] === false ? 'border-rose-600 bg-rose-50 text-rose-800' : 'border-slate-200 hover:border-rose-300 text-slate-700'}">
+                      <i class="fa-solid fa-circle-xmark text-xl"></i> SALAH
+                    </button>
+                  </div>
+                ` : ''}
+
+                ${soal.type === 'uraian' ? `
+                  <div>
+                    <textarea rows="4" oninput="setEvalAnswerText(${idx}, this.value)" placeholder="Tuliskan jawaban uraianmu secara jelas dan lengkap di sini..." class="w-full rounded-2xl border-2 border-slate-200 focus:border-royal-600 p-4 text-xs sm:text-sm outline-none">${evalState.answers[idx] || ''}</textarea>
+                    <p class="text-[11px] text-slate-500 mt-1.5"><i class="fa-solid fa-circle-info mr-1"></i>Soal uraian akan dinilai berdasarkan kelengkapan konsep dan kata kunci rubrik.</p>
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+
+            <!-- Navigasi Sebelumnya / Selanjutnya -->
+            <div class="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
+              <button onclick="goEvalQuestion(${idx - 1})" ${idx === 0 ? 'disabled' : ''} class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 hover:bg-slate-100 disabled:opacity-40 text-xs sm:text-sm font-bold flex items-center gap-2">
+                <i class="fa-solid fa-arrow-left"></i> Sebelumnya
+              </button>
+
+              ${idx < EVALUASI_SOAL.length - 1 ? `
+                <button onclick="goEvalQuestion(${idx + 1})" class="px-5 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-white text-xs sm:text-sm font-bold flex items-center gap-2">
+                  Selanjutnya <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              ` : `
+                <button onclick="submitEvaluasi()" class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm font-bold flex items-center gap-2 shadow">
+                  <i class="fa-solid fa-paper-plane"></i> Selesai & Lihat Nilai
+                </button>
+              `}
+            </div>
+          </div>
+
+          <!-- Kolom Kanan: Navigasi Nomor 1–25 & Nama Peserta -->
+          <div class="lg:col-span-4 space-y-4">
+            <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm space-y-4">
+              <div>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Nama Peserta (Untuk Sertifikat)</label>
+                <input id="eval-student-name" type="text" value="${evalState.studentName || appState.lkpdData.nama}" oninput="evalState.studentName=this.value" placeholder="Ketik nama lengkapmu..." class="w-full rounded-xl border border-slate-300 px-3 py-2 text-xs sm:text-sm" />
+              </div>
+
+              <div>
+                <div class="text-xs font-bold text-navy-900 mb-2">Navigasi Nomor Soal (1–25)</div>
+                <div class="grid grid-cols-5 gap-2">
+                  ${EVALUASI_SOAL.map((_, i) => {
+                    const isCurrent = i === idx;
+                    const isAnswered = evalState.answers[i] !== null && evalState.answers[i] !== '';
+                    let btnClass = 'bg-slate-100 text-slate-700 border-slate-200';
+                    if (isAnswered) btnClass = 'bg-tosca-500 text-white border-tosca-600';
+                    if (isCurrent) btnClass = 'bg-royal-600 text-white border-royal-700 ring-2 ring-indigo-200';
+                    return `
+                      <button onclick="goEvalQuestion(${i})" class="h-9 rounded-xl border text-xs font-bold transition ${btnClass}">
+                        ${i + 1}
+                      </button>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+
+              <div class="pt-3 border-t border-slate-100">
+                <button onclick="submitEvaluasi()" class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs sm:text-sm shadow">
+                  Akhiri Tes & Hitung Nilai
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function setEvalAnswer(idx, val) {
+      evalState.answers[idx] = val;
+      renderEvaluasi(document.getElementById('app-content'));
+    }
+
+    function setEvalAnswerText(idx, val) {
+      evalState.answers[idx] = val;
+    }
+
+    function goEvalQuestion(idx) {
+      if (idx < 0 || idx >= EVALUASI_SOAL.length) return;
+      evalState.currentIndex = idx;
+      renderEvaluasi(document.getElementById('app-content'));
+    }
+
+    function submitEvaluasi() {
+      // Hitung skor: PG (15 soal x 4 poin = 60), BS (5 soal x 4 poin = 20), Uraian (5 soal x 4 poin = 20) -> Total Maks = 100
+      let pgCorrect = 0;
+      let bsCorrect = 0;
+      let uraianPoints = 0;
+
+      EVALUASI_SOAL.forEach((s, i) => {
+        const ans = evalState.answers[i];
+        if (s.type === 'pg' && ans === s.ans) pgCorrect++;
+        if (s.type === 'bs' && ans === s.ans) bsCorrect++;
+        if (s.type === 'uraian' && typeof ans === 'string' && ans.trim().length > 10) {
+          // Penilaian otomatis berbasis panjang substansi & kata kunci
+          const lower = ans.toLowerCase();
+          const keywords = s.kunci.toLowerCase().split(/[\s,().]+/).filter(w => w.length > 4);
+          const matchCount = keywords.filter(k => lower.includes(k)).length;
+          if (matchCount >= 2) uraianPoints += 4;
+          else if (matchCount === 1 || ans.trim().length >= 25) uraianPoints += 3;
+          else uraianPoints += 2;
+        }
+      });
+
+      const skorDiperoleh = (pgCorrect * 4) + (bsCorrect * 4) + uraianPoints;
+      const skorMaksimal = 100;
+      const nilaiAkhir = Math.round((skorDiperoleh / skorMaksimal) * 100);
+
+      let kategori = 'Perlu Bimbingan';
+      if (nilaiAkhir >= 90) kategori = 'Sangat Baik';
+      else if (nilaiAkhir >= 80) kategori = 'Baik';
+      else if (nilaiAkhir >= 70) kategori = 'Cukup';
+
+      const studentName = (evalState.studentName || appState.lkpdData.nama || 'Peserta Didik SMK Perintis Adiluhur').trim();
+
+      appState.evalResult = {
+        pgCorrect,
+        bsCorrect,
+        uraianPoints,
+        totalScore: nilaiAkhir,
+        category: kategori,
+        studentName,
+        date: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })
+      };
+      evalState.submitted = true;
+      saveState();
+      playSoundEffect('correct');
+      renderEvaluasi(document.getElementById('app-content'));
+    }
+
+    function resetEvaluasi() {
+      evalState = {
+        currentIndex: 0,
+        answers: new Array(25).fill(null),
+        submitted: false,
+        studentName: appState.evalResult?.studentName || ''
+      };
+      renderEvaluasi(document.getElementById('app-content'));
+    }
+
+    function renderEvaluasiResult(container) {
+      const res = appState.evalResult;
+
+      container.innerHTML = `
+        <div class="space-y-6">
+          <!-- Kartu Hasil Nilai Akhir -->
+          <div class="card-gradient rounded-3xl p-6 md:p-8 text-white shadow-xl flex flex-wrap items-center justify-between gap-6">
+            <div class="space-y-2">
+              <span class="px-3 py-1 rounded-full bg-white/15 text-tosca-300 text-xs font-bold">HASIL EVALUASI PEMBELAJARAN</span>
+              <h2 class="font-display text-2xl md:text-3xl font-extrabold">${res.studentName}</h2>
+              <p class="text-xs sm:text-sm text-indigo-100">
+                Pilihan Ganda Benar: <strong>${res.pgCorrect}/15</strong> • Benar/Salah: <strong>${res.bsCorrect}/5</strong> • Poin Uraian: <strong>${res.uraianPoints}/20</strong>
+              </p>
+              <div class="pt-2 flex flex-wrap gap-3 no-print">
+                <button onclick="window.print()" class="px-5 py-2.5 rounded-xl bg-tosca-500 hover:bg-tosca-400 text-navy-950 font-bold text-xs sm:text-sm flex items-center gap-2 shadow">
+                  <i class="fa-solid fa-print"></i> Cetak Sertifikat Hasil Belajar
+                </button>
+                <button onclick="resetEvaluasi()" class="px-5 py-2.5 rounded-xl bg-white/15 hover:bg-white/25 text-white font-semibold text-xs sm:text-sm flex items-center gap-2">
+                  <i class="fa-solid fa-rotate-right"></i> Ulangi Evaluasi
+                </button>
+              </div>
+            </div>
+
+            <div class="bg-white text-navy-900 rounded-3xl p-6 text-center min-w-[180px] shadow-lg">
+              <div class="text-xs font-bold uppercase text-slate-500">Nilai Akhir</div>
+              <div class="font-display text-5xl font-extrabold text-royal-600 my-1">${res.totalScore}</div>
+              <span class="inline-block px-3 py-1 rounded-full text-xs font-bold ${res.totalScore >= 80 ? 'bg-emerald-100 text-emerald-800' : 'bg-amber-100 text-amber-800'}">
+                ${res.category}
+              </span>
+            </div>
+          </div>
+
+          <!-- SERTIFIKAT HASIL BELAJAR (AREA CETAK) -->
+          <div id="print-area" class="bg-white rounded-3xl p-6 md:p-10 border-4 border-double border-royal-600 shadow-lg text-center relative overflow-hidden">
+            <div class="border-2 border-tosca-500 rounded-2xl p-6 md:p-10 space-y-4">
+              <div class="text-xs font-bold uppercase tracking-[0.25em] text-royal-600">SMK Perintis Adiluhur • Mata Pelajaran Bahasa Indonesia</div>
+              <h3 class="font-display text-2xl md:text-4xl font-extrabold text-navy-900">SERTIFIKAT KOMPETENSI BELAJAR</h3>
+              <p class="text-xs sm:text-sm text-slate-500">Diberikan kepada:</p>
+              <div class="font-display text-xl md:text-3xl font-extrabold text-royal-700 border-b-2 border-slate-300 inline-block px-8 pb-1">
+                ${res.studentName}
+              </div>
+              <p class="text-xs sm:text-sm text-slate-700 max-w-2xl mx-auto leading-relaxed">
+                Telah menyelesaikan pembelajaran interaktif dan evaluasi kompetensi pada materi <strong>Teks Ceramah (Kelas XII SMK Fase F)</strong> dengan perolehan nilai akhir <strong>${res.totalScore}</strong> (Predikat: <strong>${res.category}</strong>).
+              </p>
+              <div class="pt-6 flex flex-wrap justify-around items-end gap-6 text-xs sm:text-sm">
+                <div>
+                  <div class="text-slate-500">Tanggal Kelulusan</div>
+                  <div class="font-bold text-navy-900 mt-1">${res.date}</div>
+                </div>
+                <div>
+                  <div class="text-slate-500">Guru Pengampu & Pengembang MPI</div>
+                  <div class="font-bold text-navy-900 mt-6 underline">Sri Kias Artiningsih, S.Pd.</div>
+                  <div class="text-xs text-slate-500">SMK Perintis Adiluhur</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pembahasan Lengkap 25 Soal -->
+          <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm no-print">
+            <h3 class="font-display font-bold text-lg text-navy-900 mb-4">Pembahasan Soal Evaluasi</h3>
+            <div class="space-y-3 max-h-[500px] overflow-y-auto pr-2">
+              ${EVALUASI_SOAL.map((s, i) => {
+                const userAns = evalState.answers[i];
+                let statusBadge = '';
+                let kunciText = '';
+                if (s.type === 'pg') {
+                  const ok = userAns === s.ans;
+                  statusBadge = ok ? '<span class="text-emerald-600 font-bold">Benar</span>' : '<span class="text-rose-600 font-bold">Salah</span>';
+                  kunciText = s.opts[s.ans];
+                } else if (s.type === 'bs') {
+                  const ok = userAns === s.ans;
+                  statusBadge = ok ? '<span class="text-emerald-600 font-bold">Benar</span>' : '<span class="text-rose-600 font-bold">Salah</span>';
+                  kunciText = s.ans ? 'BENAR' : 'SALAH';
+                } else {
+                  statusBadge = '<span class="text-indigo-600 font-bold">Uraian</span>';
+                  kunciText = s.kunci;
+                }
+                return `
+                  <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm space-y-1">
+                    <div class="flex justify-between">
+                      <span class="font-bold text-navy-900">Soal ${i + 1}</span>
+                      ${statusBadge}
+                    </div>
+                    <p class="text-slate-800">${s.q}</p>
+                    <p class="text-tosca-700 font-semibold">Kunci/Rubrik: ${kunciText}</p>
+                    <p class="text-slate-600 italic">Pembahasan: ${s.bahas}</p>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* ============================================================================
+       15. MENU 7: PROFIL PENGEMBANG
+       ============================================================================ */
+    function renderPengembang(container) {
+      container.innerHTML = `
+        <div class="max-w-4xl mx-auto">
+          <div class="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
+            <div class="hero-gradient p-8 text-white text-center relative">
+              <div class="w-24 h-24 rounded-3xl bg-white/15 backdrop-blur-md border-2 border-tosca-400 mx-auto flex items-center justify-center text-3xl font-display font-extrabold text-tosca-300 shadow-xl mb-4">
+                SK
+              </div>
+              <span class="px-3 py-1 rounded-full bg-white/15 text-tosca-300 text-xs font-bold uppercase tracking-wider">Profil Pengembang Media</span>
+              <h2 class="font-display text-2xl md:text-3xl font-extrabold mt-2">Sri Kias Artiningsih, S.Pd.</h2>
+              <p class="text-sm text-indigo-200 mt-1">Guru Bahasa Indonesia • SMK Perintis Adiluhur</p>
+            </div>
+
+            <div class="p-6 md:p-8 space-y-6">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                  <div class="text-xs text-slate-500 font-semibold uppercase">Nama Lengkap</div>
+                  <div class="font-bold text-navy-900 mt-0.5">Sri Kias Artiningsih, S.Pd.</div>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                  <div class="text-xs text-slate-500 font-semibold uppercase">Profesi / Jabatan</div>
+                  <div class="font-bold text-navy-900 mt-0.5">Guru Mata Pelajaran Bahasa Indonesia</div>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                  <div class="text-xs text-slate-500 font-semibold uppercase">Instansi / Sekolah</div>
+                  <div class="font-bold text-navy-900 mt-0.5">SMK Perintis Adiluhur</div>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200">
+                  <div class="text-xs text-slate-500 font-semibold uppercase">Produk & Materi</div>
+                  <div class="font-bold text-navy-900 mt-0.5">MPI Bahasa Indonesia – Teks Ceramah (Kelas XII Fase F)</div>
+                </div>
+              </div>
+
+              <div class="p-6 rounded-2xl bg-gradient-to-r from-indigo-50 to-teal-50 border border-indigo-100 relative">
+                <i class="fa-solid fa-quote-left text-2xl text-royal-600/30 mb-2 block"></i>
+                <p class="text-sm sm:text-base text-navy-900 font-medium italic leading-relaxed">
+                  “Media ini dikembangkan sebagai sarana pembelajaran yang kreatif, interaktif, dan menyenangkan untuk meningkatkan keterampilan berbahasa, berpikir kritis, serta kemampuan komunikasi peserta didik.”
+                </p>
+                <div class="mt-3 text-xs font-bold text-royal-700">— Sri Kias Artiningsih, S.Pd.</div>
+              </div>
+
+              <div class="flex flex-wrap justify-between items-center gap-3 pt-2">
+                <button onclick="speakText('Profil Pengembang. Nama: Sri Kias Artiningsih, S.Pd. Profesi: Guru Bahasa Indonesia di SMK Perintis Adiluhur. Media ini dikembangkan sebagai sarana pembelajaran yang kreatif, interaktif, dan menyenangkan untuk meningkatkan keterampilan berbahasa, berpikir kritis, serta kemampuan komunikasi peserta didik.')" class="px-5 py-2.5 rounded-xl bg-tosca-600 hover:bg-tosca-700 text-white font-bold text-xs sm:text-sm flex items-center gap-2 transition">
+                  <i class="fa-solid fa-volume-high"></i> Dengarkan Sambutan Pengembang
+                </button>
+                <button onclick="navigateTo('dashboard')" class="px-5 py-2.5 rounded-xl bg-navy-900 hover:bg-navy-800 text-white font-bold text-xs sm:text-sm transition">
+                  Kembali ke Dashboard
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    /* ============================================================================
+       16. INISIALISASI SAAT HALAMAN DIMUAT
+       ============================================================================ */
+    window.onload = function () {
+      initSpeechVoices();
+      updateProgressUI();
+    };
+  </script>
+</body>
+</html>
